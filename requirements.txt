@@ -1,0 +1,11 @@
+asgiref
+Babel
+Django
+django-phonenumber-field
+djangorestframework
+phonenumbers
+Pillow
+psycopg2
+python-dotenv
+pytz
+sqlparse==0.4.3
