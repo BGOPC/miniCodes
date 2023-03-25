@@ -9,7 +9,7 @@ class User(AbstractUser):
     username = models.SlugField(default="", null=False, db_index=True, blank=True)  # forced by django admin problems :(
     password = models.CharField(max_length=255, null=True)
     email = models.EmailField(max_length=255, unique=True)
-    reputation = models.DecimalField(max_digits=7, decimal_places=1)
+    reputation = models.DecimalField(max_digits=7, decimal_places=1, default=1.0)
     phoneNum = PhoneNumberField(null=False, unique=True, default='')
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username", "first_name", "last_name", "password"]
