@@ -21,12 +21,16 @@ class Code(models.Model):
     score = models.IntegerField(default=0, null=False)
 
 
-class Answer(models.Model):
-    author = models.ForeignKey(User, on_delete=models.RESTRICT, related_name="Answer_Author")
-    text = models.TextField(null=False, blank=True)
+class Question(models.Model):
+    author = models.ForeignKey(User, on_delete=models.RESTRICT, related_name="Question_Author")
+    description = models.TextField(null=False, default="No Description Provided")
     code = models.ManyToManyField(Code)
     score = models.IntegerField(default=0, null=False)
 
 
-class Question(models.Model):
-    pass
+class Answer(models.Model):
+    author = models.ForeignKey(User, on_delete=models.RESTRICT, related_name="Answer_Author")
+    description = models.TextField(null=False, default="No Description Provided")
+    code = models.ManyToManyField(Code)
+    score = models.IntegerField(default=0, null=False)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
