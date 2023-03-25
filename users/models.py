@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
 from phonenumber_field.modelfields import PhoneNumberField
+
+
 # Create your models here.
 class User(AbstractUser):
     username = models.SlugField(default="", null=False, db_index=True, blank=True)  # forced by django admin problems :(
