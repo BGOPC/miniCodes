@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'MiniCodes.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'tisno',
+        'NAME': 'minicodes',
         'USER': os.getenv('psqlUser'),
         'PASSWORD': os.getenv('psqlPW'),
         'HOST': '127.0.0.1',
