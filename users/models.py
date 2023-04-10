@@ -15,5 +15,5 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ["username", "first_name", "last_name", "password"]
 
     def save(self, *args, **kwargs):
-        self.username = slugify(self.first_name + self.last_name)
+        self.username = slugify(f'{self.first_name} {self.last_name}')
         super().save(*args, **kwargs)

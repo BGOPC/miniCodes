@@ -52,15 +52,19 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-AUTHENTICATION_BACKENDS = []
-
+# configs
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+PASSWORD_RESET_TIMEOUT = 12
+SITE_NAME = 'MiniCodes'
 ROOT_URLCONF = 'MiniCodes.urls'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'profile'
 LOGOUT_REDIRECT_URL = 'login'
 AUTH_USER_MODEL = 'users.User'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+EMAIL_HOST = os.getenv('smpt_email')
+EMAIL_HOST_USER = os.getenv('smpt_user')
+EMAIL_HOST_PASSWORD = os.getenv('smpt_password')
+EMAIL_PORT = '2525'
 
 TEMPLATES = [
     {
@@ -88,8 +92,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'minicodes',
-        'USER': os.getenv('psqlUser'),
-        'PASSWORD': os.getenv('psqlPW'),
+        'USER': os.getenv('postgres_user'),
+        'PASSWORD': os.getenv('postgres_password'),
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
