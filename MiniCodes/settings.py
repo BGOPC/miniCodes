@@ -61,9 +61,9 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'profile'
 LOGOUT_REDIRECT_URL = 'login'
 AUTH_USER_MODEL = 'users.User'
-EMAIL_HOST = os.getenv('smpt_email')
-EMAIL_HOST_USER = os.getenv('smpt_user')
-EMAIL_HOST_PASSWORD = os.getenv('smpt_password')
+EMAIL_HOST = os.getenv('smtp_email')
+EMAIL_HOST_USER = os.getenv('smtp_user')
+EMAIL_HOST_PASSWORD = os.getenv('smtp_password')
 EMAIL_PORT = '2525'
 
 TEMPLATES = [
