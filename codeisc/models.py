@@ -5,7 +5,7 @@ from users.models import User
 # Create your models here.
 class Code(models.Model):
     author = models.ForeignKey(User, on_delete=models.RESTRICT, related_name="Code_Author")
-    description = models.CharField(max_length=255, null=False, default="No Description Provided")
+    description = models.CharField(max_length=100, null=False, default="No Description Provided")
     code_text = models.TextField(blank=True, null=False)
     type = models.CharField(max_length=3, choices=[
         ("TXT", "TextFile"),
