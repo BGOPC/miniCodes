@@ -23,6 +23,7 @@ class Code(models.Model):
 
 class Question(models.Model):
     author = models.ForeignKey(User, on_delete=models.RESTRICT, related_name="Question_Author", null=True)
+    short_description = models.CharField(max_length=100, null=False, default="No Description Provided")
     description = models.TextField(null=False, default="No Description Provided")
     code = models.ManyToManyField(Code)
     score = models.IntegerField(default=0, null=False)
@@ -30,6 +31,7 @@ class Question(models.Model):
 
 class Answer(models.Model):
     author = models.ForeignKey(User, on_delete=models.RESTRICT, related_name="Answer_Author")
+    short_description = models.CharField(max_length=100, null=False, default="No Description Provided")
     description = models.TextField(null=False, default="No Description Provided")
     code = models.ManyToManyField(Code)
     score = models.IntegerField(default=0, null=False)
