@@ -18,8 +18,29 @@ class CodeView(TemplateView):
     template_name = 'codeisc/codePage.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(** kwargs)
+        context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
         code_id = self.kwargs['codeID']
         context['code'] = Code.objects.filter(id=code_id)
+        return context
+
+
+class AnswerView(TemplateView):
+    template_name = 'codeisc/codePage.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        code_id = self.kwargs['answerID']
+        context['answer'] = Code.objects.filter(id=code_id)
+        return context
+
+class QuestionView(TemplateView):
+    template_name = 'codeisc/codePage.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        code_id = self.kwargs['questionID']
+        context['question'] = Code.objects.filter(id=code_id)
         return context
