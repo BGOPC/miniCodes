@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6+no)()-o7ue0ed5waoxr0wn6)j2k1ko6)%__sv$s%d3@7(^7+'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -60,9 +60,9 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'profile'
 LOGOUT_REDIRECT_URL = 'login'
 AUTH_USER_MODEL = 'users.User'
-EMAIL_HOST = os.getenv('smtp_email')
-EMAIL_HOST_USER = os.getenv('smtp_user')
-EMAIL_HOST_PASSWORD = os.getenv('smtp_password')
+EMAIL_HOST = os.getenv('SMTP_EMAIL')
+EMAIL_HOST_USER = os.getenv('POSTGRES_USER')
+EMAIL_HOST_PASSWORD = os.getenv('POSTGRES_PASSWORD')
 EMAIL_PORT = '2525'
 
 TEMPLATES = [
