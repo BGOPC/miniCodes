@@ -8,12 +8,18 @@ from django.core.paginator import Paginator
 
 class HomeView(TemplateView):
     template_name = 'codeisc/home.html'
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
-        latest_questions = Question.objects.all().order_by('-id')[:10]
-        context['question'] = latest_questions
+        all_questions = Question.objects.all().order_by('-id')
+        paginator = Paginator(all_questions, 10)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        questions = page_obj.object_list
+        context['questions'] = questions
+        context['page_object'] = page_obj
         return context
 
 
