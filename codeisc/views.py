@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, View
 from .models import Question, Answer, Code
+from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -11,6 +12,8 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
+        latest_questions = Question.objects.all().order_by('-id')[:10]
+        context['question'] = latest_questions
         return context
 
 
