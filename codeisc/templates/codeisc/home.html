@@ -1,8 +1,34 @@
 {% extends '_layout.html' %}
+
 {% block title %}
 MiniCodes
 {% endblock title %}
 
 {% block content %}
-<h1>Hi</h1>
+  <div class="container mx-auto">
+    <h1 class="text-4xl font-bold mb-8">Latest Questions</h1>
+    <ul class="mb-8">
+      {% for question in questions %}
+        <li class="text-lg mb-2">{{ question.question_text }}</li>
+      {% endfor %}
+    </ul>
+
+    <div class="flex justify-center">
+      <div class="flex rounded-md bg-gray-200 shadow-md">
+        {% if page_obj.has_previous %}
+          <a href="?page=1" class="px-4 py-2 hover:bg-blue-400">First</a>
+          <a href="?page={{ page_obj.previous_page_number }}" class="px-4 py-2 hover:bg-blue-400">&laquo;</a>
+        {% endif %}
+
+        <div class="px-4 py-2 bg-gray-300">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </div>
+
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}" class="px-4 py-2 hover:bg-blue-400">&raquo;</a>
+          <a href="?page={{ page_obj.paginator.num_pages }}" class="px-4 py-2 hover:bg-blue-400">Last</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
 {% endblock %}
