@@ -1,38 +1,64 @@
 {% extends '_layout.html' %}
 
 {% block title %}
-MiniCodes
+    MiniCodes
 {% endblock title %}
 
 {% block content %}
-  <div class="container mx-auto">
-    {% if questions %}
-      <h1 class="text-4xl font-bold mb-8">Latest Questions</h1>
-      <ul class="mb-8">
-        {% for question in questions %}
-          <li class="text-lg mb-2">{{ question.question_text }}</li>
-        {% endfor %}
-      </ul>
+    <div class="container mx-auto">
+        {% if questions %}
+            <h1 class="text-4xl font-bold mb-8">Latest Questions</h1>
+            <ul class="mb-8">
+                {% for question in questions %}
+                    <li class="bg-white rounded-lg shadow-lg px-6 py-4 mb-4">
+                        <div class="flex justify-between">
+                            <div class="flex items-center">
+                                <img src="{{ question.author.profile.image.url }}"
+                                     class="rounded-full h-8 w-8 object-cover mr-2" alt="Profile Image">
+                                <div class="font-bold text-lg">{{ question.author.username }}</div>
+                            </div>
+                            <div class="font-bold">{{ question.score }} votes</div>
+                        </div>
+                        <div class="text-lg my-2">{{ question.short_description }}</div>
+                        <div class="text-gray-600">{{ question.description }}</div>
+                    </li>
+                {% endfor %}
+            </ul>
 
-      <div class="flex justify-center">
-        <div class="flex rounded-md bg-gray-200 shadow-md">
-          {% if page_obj.has_previous %}
-            <a href="?page=1" class="px-4 py-2 hover:bg-blue-400">First</a>
-            <a href="?page={{ page_obj.previous_page_number }}" class="px-4 py-2 hover:bg-blue-400">&laquo;</a>
-          {% endif %}
+            <div class="flex justify-center">
+                <div class="flex rounded-md bg-gray-200 shadow-md">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1" class="px-4 py-2 hover:bg-cyan-500 text-slate-200">First</a>
+                        <a href="?page={{ page_obj.previous_page_number }}"
+                           class="px-4 py-2 hover:bg-cyan-500 text-slate-200">&laquo;</a>
+                    {% endif %}
 
-          <div class="px-4 py-2 bg-gray-300">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-          </div>
+                    <div class="px-4 py-2 bg-slate-300 text-slate-800">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </div>
 
-          {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}" class="px-4 py-2 hover:bg-blue-400">&raquo;</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}" class="px-4 py-2 hover:bg-blue-400">Last</a>
-          {% endif %}
-        </div>
-      </div>
-    {% else %}
-      <h1 class="text-4xl font-bold mb-8">It's calm right now, stay tuned</h1>
-    {% endif %}
-  </div>
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}"
+                           class="px-4 py-2 hover:bg-cyan-500 text-slate-200">&raquo;</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}"
+                           class="px-4 py-2 hover:bg-cyan-500 text-slate-200">Last</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+            <div class="flex flex-col items-center justify-center h-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 mb-8 text-slate-400" viewBox="0 0 20 20"
+                     fill="currentColor">
+                    <path fill-rule="evenodd"
+                          d="M2.158 9.994a1 1 0 011.427-.083l.082.083L10 16.586l6.332-6.332a1 1 0 011.427 1.414l-.082.083-7 7a1 1 0 01-1.427 0l-7-7a1 1 0 01-.083-1.414z"
+                          clip-rule="evenodd"></path>
+                    <path fill-rule="evenodd"
+                          d="M2.158 10.006a1 1 0 00-1.427.083l-.082.083a1 1 0 000 1.414l7 7a1 1 0 001.427 0l7-7a1 1 0 00-1.427-1.414L10 16.586l-6.332-6.332a1 1 0 00-.083-1.414z"
+                          clip-rule="evenodd"></path>
+                </svg>
+                <h1 class="text-4xl font-bold mb-8 text-slate-800">It's calm right now, stay tuned</h1>
+                <p class="text-lg text-gray-600">Check back later for more questions.</p>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

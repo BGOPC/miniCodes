@@ -11,6 +11,7 @@ class User(AbstractUser):
     email = models.EmailField(max_length=255, unique=True)
     reputation = models.DecimalField(max_digits=7, decimal_places=1, default=1.0)
     phoneNum = PhoneNumberField(null=False, unique=True, default='')
+    profile = models.ImageField(upload_to="profile/", null=True, blank=True)
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username", "first_name", "last_name", "password"]
 
