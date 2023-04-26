@@ -1,7 +1,10 @@
 # MiniCodes
 
-This is discussing application for programmers, a place for programmers to share their problems and others to response, kinda like stackoverflow
-This project is written in Python's Django Framework
+This application serves as a platform for programmers to engage in the exchange of knowledge and ideas by facilitating the sharing of programming-related problems and solutions amongst its users. It operates in a manner similar to that of the highly acclaimed website, StackOverflow. 
+
+The project is developed using Python's Django Framework, a highly popular web development framework that provides efficient and scalable means to build robust web applications. The use of Django Framework ensures that the project is developed with a high degree of professionalism and adheres to industry best practices. 
+
+Through this application, programmers can collaborate and contribute towards the growth of a shared knowledge base, thereby creating a more informed and empowered community of developers. This project is thus essential in fostering an environment of innovation and progress in the ever-evolving field of programming.
 
 ## Bug Report
 
