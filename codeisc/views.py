@@ -34,15 +34,20 @@ class CodeView(TemplateView):
         return context
 
 
-class AnswerView(TemplateView):
+class AnswersView(TemplateView):
     template_name = 'codeisc/codePage.html'
+    paginate_by = 15
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
-        code_id = self.kwargs['answerID']
-        context['answer'] = Code.objects.filter(id=code_id)
+        answer_list = Answer.objects.all()
+        paginator = Paginator(answer_list, self.paginate_by)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context['page_obj'] = page_obj
         return context
+
 
 class QuestionView(TemplateView):
     template_name = 'codeisc/codePage.html'
@@ -50,6 +55,9 @@ class QuestionView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
-        code_id = self.kwargs['questionID']
-        context['question'] = Code.objects.filter(id=code_id)
+        question_id = kwargs['questionID']
+        answer_id = kwargs['answerID'] or None
+        context['question'] = Question.objects.filter(id=question_id)
+        if answer:
+            context['selected_answer'] = Answer.objects.filter(id=answer_id)
         return context
