@@ -58,6 +58,6 @@ class QuestionView(TemplateView):
         question_id = kwargs['questionID']
         answer_id = kwargs['answerID'] or None
         context['question'] = Question.objects.filter(id=question_id)
-        if answer:
+        if answer_id:
             context['selected_answer'] = Answer.objects.filter(id=answer_id)
         return context
