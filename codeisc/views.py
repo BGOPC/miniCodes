@@ -1,5 +1,8 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, View
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, ListView, View, CreateView
+
+from .forms import CreateQuestionForm
 from .models import Question, Answer, Code
 from django.core.paginator import Paginator
 
@@ -61,3 +64,14 @@ class QuestionView(TemplateView):
         if answer_id:
             context['selected_answer'] = Answer.objects.filter(id=answer_id)
         return context
+
+
+class QuestionCreateView(CreateView):
+    model = Question
+    form_class = CreateQuestionForm
+    template_name = 'question_create.html'
+    success_url = reverse_lazy('question_detail')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
