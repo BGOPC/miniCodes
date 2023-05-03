@@ -69,7 +69,7 @@ class QuestionView(TemplateView):
 class QuestionCreateView(CreateView):
     model = Question
     form_class = CreateQuestionForm
-    template_name = 'question_create.html'
+    template_name = 'codeisc/create_question_page.html'
     success_url = reverse_lazy('question_detail')
 
     def form_valid(self, form):
