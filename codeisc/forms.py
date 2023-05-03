@@ -5,7 +5,7 @@ from .models import *
 class CreateQuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ['short_description', 'description', 'code', 'score']
+        fields = ['short_description', 'description', 'code']
         widgets = {
             'short_description': forms.TextInput(attrs={
                 'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 '

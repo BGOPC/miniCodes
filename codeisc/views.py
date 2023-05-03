@@ -10,7 +10,7 @@ from django.core.paginator import Paginator
 # Create your views here.
 
 class HomeView(TemplateView):
-    template_name = 'codeisc/home.html'
+    template_name = 'codeisc/home_page.html'
     paginate_by = 10
 
     def get_context_data(self, **kwargs):
@@ -27,7 +27,7 @@ class HomeView(TemplateView):
 
 
 class CodeView(TemplateView):
-    template_name = 'codeisc/codePage.html'
+    template_name = 'codeisc/code_page.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -38,7 +38,7 @@ class CodeView(TemplateView):
 
 
 class AnswersView(TemplateView):
-    template_name = 'codeisc/codePage.html'
+    template_name = 'codeisc/code_page.html'
     paginate_by = 15
 
     def get_context_data(self, **kwargs):
@@ -53,7 +53,7 @@ class AnswersView(TemplateView):
 
 
 class QuestionView(TemplateView):
-    template_name = 'codeisc/codePage.html'
+    template_name = 'codeisc/code_page.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
