@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, CreateView
 
-from .forms import CreateQuestionForm
+from .forms import CreateQuestionForm, CreateCodeForm
 from .models import Question, Answer, Code
 from django.core.paginator import Paginator
 
@@ -35,10 +35,11 @@ class CodeView(TemplateView):
         context['code'] = Code.objects.filter(id=code_id)
         return context
 
+
 class CodeCreateView(CreateView):
     model = Code
-    form_class = CodeForm
-    template_name = 'code_create.html'
+    form_class = CreateCodeForm
+    template_name = 'codeisc/create_code_page.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -46,6 +47,7 @@ class CodeCreateView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy('code_detail', kwargs={'pk': self.object.pk})
+
 
 class AnswersView(TemplateView):
     template_name = 'codeisc/code_page.html'
