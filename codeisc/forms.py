@@ -17,3 +17,20 @@ class CreateQuestionForm(forms.ModelForm):
                 'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 '
                          'px-4 mb-3 leading-tight focus:outline-none focus:bg-white'}),
         }
+
+
+class CreateCodeForm(forms.ModelForm):
+    class Meta:
+        model = Code
+        fields = ['description', 'code_text', 'type']
+        widgets = {
+            'description': forms.TextInput(attrs={
+                'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 '
+                         'px-4 mb-3 leading-tight focus:outline-none focus:bg-white text-center'}),
+            'code_text': forms.Textarea(attrs={
+                'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 '
+                         'px-4 mb-3 leading-tight focus:outline-none focus:bg-white'}),
+            'type': forms.Select(attrs={
+                'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 '
+                         'px-4 mb-3 leading-tight focus:outline-none focus:bg-white text-center'}),
+        }
