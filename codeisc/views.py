@@ -1,9 +1,8 @@
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, CreateView
 
 from .forms import CreateQuestionForm, CreateCodeForm
 from .models import Question, Answer, Code
-from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -14,14 +13,18 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user'] = self.request.user
         all_questions = Question.objects.all().order_by('-id')
-        paginator = Paginator(all_questions, 10)
-        page_number = self.request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-        questions = page_obj.object_list
-        context['questions'] = questions
-        context['page_object'] = page_obj
+        username = self.request.user.username
+        user_codes = Code.objects.filter(author__username=username).order_by('-created_at')
+        user_questions = Question.objects.filter(author__username=username).order_by('-created_at')
+        last_user_code_id = user_codes.first().id
+        last_user_question_id = user_questions.first().id
+        last_code = reverse("CodePage", args=[last_user_code_id])
+        last_question = reverse("QuestionPage", args=last_user_question_id)
+        context['user'] = self.request.user
+        context['last_code'] = last_code
+        context['last_question'] = last_question
+        context['questions'] = all_questions
         return context
 
 
@@ -57,10 +60,6 @@ class AnswersView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
         answer_list = Answer.objects.all()
-        paginator = Paginator(answer_list, self.paginate_by)
-        page_number = self.request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-        context['page_obj'] = page_obj
         return context
 
 
@@ -87,3 +86,5 @@ class QuestionCreateView(CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+# TODO: Implement the views for Questions And Codes For Specific User
