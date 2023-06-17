@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import User
+from django.utils import timezone
 
 
 # Create your models here.
@@ -7,9 +8,9 @@ class Code(models.Model):
     author = models.ForeignKey(User, on_delete=models.RESTRICT, related_name="Code_Author")
     description = models.CharField(max_length=100, null=False, default="No Description Provided")
     code_text = models.TextField(blank=True, null=False)
-    type = models.CharField(max_length=3, choices=[
+    created_at = models.DateTimeField(default=timezone.now)
+    TYPE_CHOICES = [
         ("TXT", "TextFile"),
-        ("PY", "Python"),
         ("PY", "Python"),
         ("JS", "Javascript"),
         ("TS", "Typescript"),
@@ -17,7 +18,8 @@ class Code(models.Model):
         ("CPP", "C++"),
         ("CS", "Csharp"),
         ("JV", "Java"),
-    ], default="TXT")
+    ]
+    type = models.CharField(max_length=3, choices=TYPE_CHOICES, default="TXT")
     score = models.IntegerField(default=0, null=False)
 
 
@@ -27,6 +29,7 @@ class Question(models.Model):
     description = models.TextField(null=False, default="No Description Provided")
     code = models.ManyToManyField(Code)
     score = models.IntegerField(default=0, null=False)
+    created_at = models.DateTimeField(default=timezone.now)
 
 
 class Answer(models.Model):
@@ -36,3 +39,4 @@ class Answer(models.Model):
     code = models.ManyToManyField(Code)
     score = models.IntegerField(default=0, null=False)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True)
+    created_at = models.DateTimeField(default=timezone.now)
