@@ -1,25 +1,55 @@
-<nav class="relative flex flex-wrap items-center content-between py-3 px-4  text-white bg-slate-800">
-    <div class="container mx-auto sm:px-4 max-w-full mx-auto sm:px-4">
-        <div>
-            <ul class="flex flex-wrap list-reset pl-0 mb-0">
-                <li class="">
-                    <a class="inline-block py-2 px-4 no-underline" href="{% url 'home' %}">Home</a>
-                </li>
-            </ul>
+<header class="bg-teal-500 py-4">
+    <div class="container mx-auto flex items-center justify-between">
+        <div class="flex items-center">
+            <button class="text-white focus:outline-none">
+                <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                >
+                    <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"
+                    ></path>
+                </svg>
+            </button>
+            <img
+                    class="h-8 ml-2"
+                    src="../static/favicon/favicon-32x32.png"
+                    alt="MiniCodes Logo"
+            />
+            <div class="ml-4 text-white">MiniCodes</div>
         </div>
-        <div>
-            <ul class="flex flex-wrap list-reset pl-0 mb-0">
-                {% if user.is_authenticated %}
-                    <span class="inline-block pt-2 pb-2">Logged in as {{ user.first_name|title|add:" "|add:user.last_name|title }} | </span>
-                    <li class="navbar-item">
-                        <a class="inline-block py-2 px-4 no-underline" href="{% url 'logout' %}">Logout</a>
-                    </li>
-                {% else %}
-                    <li class="navbar-item">
-                        <a class="inline-block py-2 px-4 no-underline" href="{% url 'login' %}">Login</a>
-                    </li>
-                {% endif %}
-            </ul>
+        <div class="flex items-center flex-grow m-2">
+            <input
+                    type="text"
+                    class="px-4 py-2 rounded-lg w-full"
+                    placeholder="Search"
+            />
+            {% if user.is_authenticated %}
+                <div class="ml-4 flex items-center text-white">
+                    <span class="mr-2">Logged in as BGOPC</span>
+                    <img
+                            class="h-8 w-8 rounded-full"
+                            src="{{ user.image.url }}"
+                            alt="{{ user.nickname|add:"Profile Image" }}"
+                    />
+                </div>
+            {% else %}
+                <div class="ml-4 flex items-center text-white">
+                    <span class="mr-2">Not Logged In</span>
+                    <img
+                            class="h-8 w-8 rounded-full"
+                            src="https://www.seekpng.com/png/detail/413-4139803_unknown-profile-profile-picture-unknown.png"
+                            alt="Default Profile"
+                    />
+                </div>
+            {% endif %}
+
         </div>
     </div>
-</nav>
+</header>
