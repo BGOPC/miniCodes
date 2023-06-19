@@ -1,6 +1,6 @@
 from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, CreateView
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CreateQuestionForm, CreateCodeForm
 from .models import Question, Answer, Code
 
@@ -39,7 +39,7 @@ class CodeView(TemplateView):
         return context
 
 
-class CodeCreateView(CreateView):
+class CodeCreateView(CreateView, LoginRequiredMixin):
     model = Code
     form_class = CreateCodeForm
     template_name = 'codeisc/create_code_page.html'
@@ -50,17 +50,6 @@ class CodeCreateView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy('code_detail', kwargs={'pk': self.object.pk})
-
-
-class AnswersView(TemplateView):
-    template_name = 'codeisc/code_page.html'
-    paginate_by = 15
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['user'] = self.request.user
-        answer_list = Answer.objects.all()
-        return context
 
 
 class QuestionView(TemplateView):
@@ -77,7 +66,7 @@ class QuestionView(TemplateView):
         return context
 
 
-class QuestionCreateView(CreateView):
+class QuestionCreateView(CreateView, LoginRequiredMixin):
     model = Question
     form_class = CreateQuestionForm
     template_name = 'codeisc/create_question_page.html'
@@ -87,4 +76,40 @@ class QuestionCreateView(CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-# TODO: Implement the views for Questions And Codes For Specific User
+
+class QuestionsListView(ListView):
+    model = Question
+    template_name = "codeisc/questions_page.html"
+    context_object_name = "questions"
+    ordering = "-created_at"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user_slug = self.kwargs.get("username")
+        if user_slug:
+            queryset = queryset.filter(author__username=user_slug)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context
+
+
+class CodesListView(ListView):
+    model = Code
+    template_name = "codeisc/codes_page.html"
+    context_object_name = "codes"
+    ordering = "-created_at"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        user_slug = self.kwargs.get("username")
+        if user_slug:
+            queryset = queryset.filter(author__username=user_slug)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context

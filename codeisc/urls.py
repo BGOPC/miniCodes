@@ -7,7 +7,6 @@ urlpatterns = [
     path("answers/", views.QuestionView.as_view(), name="AnswersPage"),
     path("questions/question/<int:questionID>/<int:answerID>", views.QuestionView.as_view(), name="AnswerPage"),
     path("questions/question/<int:questionID>", views.QuestionView.as_view(), name="QuestionPage"),
-    path("questions/<slug:username>", views, name="UserQuestions"),
-    path("codes/<slug:username>", views, name="UserCodes")
+    path("questions/<slug:username>", views.QuestionsListView, name="UserQuestions"),
+    path("codes/<slug:username>", views.CodesListView, name="UserCodes")
 ]
-# TODO: Implement the views for Questions And Codes For Specific User

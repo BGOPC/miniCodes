@@ -17,7 +17,7 @@
                 </li>
                 <li>
                     <a
-                            href="#"
+                            href="{% url 'UserQuestions' username=None %}"
                             class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md"
                     >Question List</a
                     >
@@ -31,7 +31,7 @@
                 </li>
                 <li>
                     <a
-                            href="#"
+                            href="{% url 'UserCodes' username=None %}"
                             class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md"
                     >Code List</a
                     >
@@ -87,8 +87,8 @@
                             <div class="mr-2">{{ question.created_at|date:"F j, Y" }}</div>
                             <img
                                     class="h-6 w-6 rounded-full"
-                                    src="{{ user.profile.url }}"
-                                    alt="{{ user.username }} profile picture"
+                                    src="{{ question.author.profile.url }}"
+                                    alt="{{ question.author.username }} profile picture"
                             />
                         </div>
                     </div>
