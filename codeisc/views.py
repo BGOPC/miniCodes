@@ -13,18 +13,20 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        all_questions = Question.objects.all().order_by('-id')
-        username = self.request.user.username
-        user_codes = Code.objects.filter(author__username=username).order_by('-created_at')
-        user_questions = Question.objects.filter(author__username=username).order_by('-created_at')
-        last_user_code_id = user_codes.first().id
-        last_user_question_id = user_questions.first().id
-        last_code = reverse("CodePage", args=[last_user_code_id])
-        last_question = reverse("QuestionPage", args=last_user_question_id)
-        context['user'] = self.request.user
-        context['last_code'] = last_code
-        context['last_question'] = last_question
-        context['questions'] = all_questions
+        context['user'] = None
+        if str(self.request.user) != "AnonymousUser":
+            all_questions = Question.objects.all().order_by('-id')
+            username = self.request.user.username
+            user_codes = Code.objects.filter(author__username=username).order_by('-created_at')
+            user_questions = Question.objects.filter(author__username=username).order_by('-created_at')
+            last_user_code_id = user_codes.first().id
+            last_user_question_id = user_questions.first().id
+            last_code = reverse("CodePage", args=[last_user_code_id])
+            last_question = reverse("QuestionPage", args=last_user_question_id)
+            context['user'] = self.request.user
+            context['last_code'] = last_code
+            context['last_question'] = last_question
+            context['questions'] = all_questions
         return context
 
 

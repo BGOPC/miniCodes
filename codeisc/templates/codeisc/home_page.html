@@ -7,7 +7,77 @@
 {% block content %}
     <div class="container mx-auto mt-8 flex">
         <nav class="w-1/4 pr-8">
-            <ul class="space-y-2">
+            {% if user %}
+                <ul class="space-y-2">
+                    <li>
+                        <a
+                                href="{% url 'home' %}"
+                                class="block text-gray-600 hover:text-teal-500 bg-slate-100 p-2 m-2 rounded-md"
+                        >Home</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                                href="{% url 'UserQuestions' username=None %}"
+                                class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md"
+                        >Question List</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                                href="#"
+                                class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md"
+                        >Ask a Question</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                                href="{% url 'UserCodes' username=None %}"
+                                class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md"
+                        >Code List</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                                href="#"
+                                class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md"
+                        >Share a Code</a
+                        >
+                    </li>
+                    <br/><br/>
+                    <div class="bg-gray-300 p-2 m-2 rounded-full items-center">
+                        <li>
+                            <a
+                                    href="{% url 'UserQuestions' username=user.username %}"
+                                    class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center"
+                            >Your Questions</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                    href="{% url 'UserCodes' username=user.username %}"
+                                    class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center"
+                            >Your Codes</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                    href="{{ last_question }}"
+                                    class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center"
+                            >Your Last Question</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                    href="{{ last_code }}"
+                                    class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center"
+                            >Your Last Shared Code</a
+                            >
+                        </li>
+                    </div>
+                </ul>
+            {% else %}
+                <ul class="space-y-2">
                 <li>
                     <a
                             href="{% url 'home' %}"
@@ -24,7 +94,7 @@
                 </li>
                 <li>
                     <a
-                            href="#"
+                            href="{% url "login" %}"
                             class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md"
                     >Ask a Question</a
                     >
@@ -38,7 +108,7 @@
                 </li>
                 <li>
                     <a
-                            href="#"
+                            href="{% url "login" %}"
                             class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md"
                     >Share a Code</a
                     >
@@ -47,51 +117,41 @@
                 <div class="bg-gray-300 p-2 m-2 rounded-full items-center">
                     <li>
                         <a
-                                href="{% url 'UserQuestions' username=user.username %}"
+                                href="{% url "login" %}"
                                 class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center"
                         >Your Questions</a
                         >
                     </li>
                     <li>
                         <a
-                                href="{% url 'UserCodes' username=user.username %}"
+                                href="{% url "login" %}"
                                 class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center"
                         >Your Codes</a
                         >
                     </li>
                     <li>
                         <a
-                                href="{{ last_question }}"
+                                href="{% url "login" %}"
                                 class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center"
                         >Your Last Question</a
                         >
                     </li>
                     <li>
                         <a
-                                href="{{ last_code }}"
+                                href="{% url "login" %}"
                                 class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center"
                         >Your Last Shared Code</a
                         >
                     </li>
                 </div>
             </ul>
+            {% endif %}
         </nav>
 
         <main class="w-3/4">
             <div class="space-y-4">
                 {% for question in questions %}
-                    <div class="bg-white p-4 rounded-lg shadow">
-                        <h2 class="text-2xl font-bold">{{ question.short_description }}</h2>
-                        <p class="text-gray-600">{{ question.description|truncatechars:100 }}</p>
-                        <div class="flex items-center text-gray-500 mt-2">
-                            <div class="mr-2">{{ question.created_at|date:"F j, Y" }}</div>
-                            <img
-                                    class="h-6 w-6 rounded-full"
-                                    src="{{ question.author.profile.url }}"
-                                    alt="{{ question.author.username }} profile picture"
-                            />
-                        </div>
-                    </div>
+                    {% include 'codeisc/includes/question.html' with question=question %}
                 {% endfor %}
             </div>
         </main>
