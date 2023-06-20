@@ -13,7 +13,6 @@ class Code(models.Model):
         ("TXT", "TextFile"),
         ("PY", "Python"),
         ("JS", "Javascript"),
-        ("TS", "Typescript"),
         ("C", "C"),
         ("CPP", "C++"),
         ("CS", "Csharp"),
