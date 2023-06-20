@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
-    'codeisc'
+    'codeisc',
+    'pygments',
+    'syntax_highlight',
 ]
 
 MIDDLEWARE = [

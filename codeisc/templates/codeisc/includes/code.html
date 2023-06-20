@@ -1,0 +1,16 @@
+{% load syntax_highlight %}
+
+<div class="bg-white p-4 rounded-lg shadow">
+    <h2 class="text-2xl font-bold">{{ code.short_description }}</h2>
+    <pre class="text-gray-600">
+        {{ code.code_text|syntax_highlight:code.type }}
+    </pre>
+    <div class="flex items-center text-gray-500 mt-2">
+        <div class="mr-2">{{ code.created_at|date:"F j, Y" }}</div>
+        <img
+                class="h-6 w-6 rounded-full"
+                src="{{ code.author.profile.url }}"
+                alt="{{ code.author.username }} profile picture"
+        />
+    </div>
+</div>
