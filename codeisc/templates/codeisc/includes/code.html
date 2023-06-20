@@ -2,9 +2,10 @@
 
 <div class="bg-white p-4 rounded-lg shadow">
     <h2 class="text-2xl font-bold">{{ code.short_description }}</h2>
-    <pre class="text-gray-600">
+    <pre class="text-gray-600" id="truncated-code">
         {{ code.code_text|syntax_highlight:code.type }}
     </pre>
+    <button type="button" id="expand-button">Expand</button>
     <div class="flex items-center text-gray-500 mt-2">
         <div class="mr-2">{{ code.created_at|date:"F j, Y" }}</div>
         <img
@@ -14,3 +15,17 @@
         />
     </div>
 </div>
+
+<script>
+
+    const truncatedCodeElement = document.getElementById('truncated-code');
+    const expandButtonElement = document.getElementById('expand-button');
+    const maxCharacters = 200;
+    const fullCodeText = truncatedCodeElement.innerText;
+    truncatedCodeElement.innerText = fullCodeText.slice(0, maxCharacters) + '...';
+
+    expandButtonElement.addEventListener('click', function (event) {
+        truncatedCodeElement.innerText = fullCodeText;
+        expandButtonElement.style.display = 'none';
+    });
+</script>
