@@ -6,7 +6,6 @@ from django.utils import timezone
 # Create your models here.
 class Code(models.Model):
     author = models.ForeignKey(User, on_delete=models.RESTRICT, related_name="Code_Author")
-    description = models.CharField(max_length=100, null=False, default="No Description Provided")
     short_description = models.CharField(max_length=100, null=False, default="No Description Provided")
     code_text = models.TextField(blank=True, null=False)
     created_at = models.DateTimeField(default=timezone.now)
