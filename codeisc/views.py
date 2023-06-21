@@ -31,14 +31,29 @@ class HomeView(TemplateView):
         return context
 
 
-class CodeView(TemplateView):
+# class CodeView(TemplateView):
+#     template_name = 'codeisc/code_page.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['user'] = self.request.user
+#         code_id = self.kwargs['codeID']
+#         context['code'] = Code.objects.filter(id=code_id)
+#         return context
+
+class CodeView(DetailView):
+    model = Code
     template_name = 'codeisc/code_page.html'
+    context_object_name = "code"
+
+    def get_object(self, queryset=None):
+        code_id = self.kwargs.get("codeID")
+        obj = Code.objects.get(id=code_id)
+        return obj
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user'] = self.request.user
-        code_id = self.kwargs['codeID']
-        context['code'] = Code.objects.filter(id=code_id)
+        context['user'] = self.request.user if str(self.request.user) != "AnonymousUser" else None
         return context
 
 
@@ -63,9 +78,9 @@ class QuestionView(TemplateView):
         context['user'] = self.request.user
         question_id = kwargs['questionID']
         answer_id = kwargs['answerID'] or None
-        context['question'] = Question.objects.filter(id=question_id)
+        context['question'] = Question.objects.get(id=question_id)
         if answer_id:
-            context['selected_answer'] = Answer.objects.filter(id=answer_id)
+            context['selected_answer'] = Answer.objects.get(id=answer_id)
         return context
 
 
