@@ -6,7 +6,8 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
 class User(AbstractUser):
-    username = models.SlugField(default="", null=False, db_index=True, blank=True)  # forced by django admin problems :(
+    username = models.SlugField(default="", null=False, db_index=True, blank=True,
+                                unique=True)  # forced by django admin problems :(
     password = models.CharField(max_length=255, null=True)
     email = models.EmailField(max_length=255, unique=True)
     reputation = models.DecimalField(max_digits=7, decimal_places=1, default=1.0)
