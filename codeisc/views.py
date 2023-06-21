@@ -1,9 +1,10 @@
 from django.urls import reverse_lazy, reverse
-from django.views.generic import TemplateView, ListView, CreateView
+from django.views.generic import TemplateView, ListView, CreateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CreateQuestionForm, CreateCodeForm
 from .models import Question, Answer, Code
 from django.core.paginator import Paginator
+
 
 # Create your views here.
 
@@ -14,8 +15,8 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = None
+        all_questions = Question.objects.all().order_by('-id')
         if str(self.request.user) != "AnonymousUser":
-            all_questions = Question.objects.all().order_by('-id')
             username = self.request.user.username
             user_codes = Code.objects.filter(author__username=username).order_by('-created_at')
             user_questions = Question.objects.filter(author__username=username).order_by('-created_at')
@@ -26,7 +27,7 @@ class HomeView(TemplateView):
             context['user'] = self.request.user
             context['last_code'] = last_code
             context['last_question'] = last_question
-            context['questions'] = all_questions
+        context['questions'] = all_questions
         return context
 
 
@@ -55,7 +56,7 @@ class CodeCreateView(CreateView, LoginRequiredMixin):
 
 
 class QuestionView(TemplateView):
-    template_name = 'codeisc/code_page.html'
+    template_name = 'codeisc/question_page.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
