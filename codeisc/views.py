@@ -3,7 +3,7 @@ from django.views.generic import TemplateView, ListView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CreateQuestionForm, CreateCodeForm
 from .models import Question, Answer, Code
-
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -84,6 +84,7 @@ class QuestionsListView(ListView):
     template_name = "codeisc/questions_page.html"
     context_object_name = "questions"
     ordering = "-created_at"
+    paginate_by = 20
 
     def get_queryset(self):
         queryset = super().get_queryset()

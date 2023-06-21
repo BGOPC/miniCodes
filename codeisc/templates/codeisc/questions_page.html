@@ -1,8 +1,68 @@
 {% extends '_layout.html' %}
 {% block title %}
-MiniCodes
+    MiniCodes
 {% endblock title %}
 
 {% block content %}
-<h1>questionsPage</h1>
+    <div class="container mx-auto py-8">
+        <h1 class="text-3xl font-bold mb-4">Questions</h1>
+
+        {% for question in questions %}
+            {% include 'codeisc/includes/question.html' %}
+        {% empty %}
+            <p class="text-gray-600">No questions found.</p>
+        {% endfor %}
+
+        <div class="flex justify-center items-center mt-4">
+            {% if is_paginated %}
+                <ul class="flex space-x-2">
+                    {% if page_obj.has_previous %}
+                        <li>
+                            <a href="?page=1" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
+                                &laquo; First
+                            </a>
+                        </li>
+                        <li>
+                            <a href="?page={{ page_obj.previous_page_number }}"
+                               class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
+                                Previous
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% for page in paginator.page_range %}
+                        {% if page_obj.number == page %}
+                            <li>
+                                <a href="?page={{ page }}" class="bg-blue-800 text-white py-2 px-4 rounded">
+                                    {{ page }}
+                                </a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="?page={{ page }}"
+                                   class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
+                                    {{ page }}
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                        <li>
+                            <a href="?page={{ page_obj.next_page_number }}"
+                               class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
+                                Next
+                            </a>
+                        </li>
+                        <li>
+                            <a href="?page={{ page_obj.paginator.num_pages }}"
+                               class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">
+                                Last &raquo;
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
