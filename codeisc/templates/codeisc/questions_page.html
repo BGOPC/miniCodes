@@ -8,7 +8,7 @@
         <h1 class="text-3xl font-bold mb-4">Questions</h1>
 
         {% for question in questions %}
-            {% include 'codeisc/includes/question.html' %}
+            {% include 'codeisc/includes/question.html' with question=question %}
         {% empty %}
             <p class="text-gray-600">No questions found.</p>
         {% endfor %}

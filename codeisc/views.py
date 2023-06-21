@@ -104,6 +104,7 @@ class CodesListView(ListView):
     template_name = "codeisc/codes_page.html"
     context_object_name = "codes"
     ordering = "-created_at"
+    paginate_by = 20
 
     def get_queryset(self):
         queryset = super().get_queryset()
