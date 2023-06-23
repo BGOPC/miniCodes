@@ -34,5 +34,5 @@ class Answer(models.Model):
     short_description = models.CharField(max_length=100, null=False, default="No Description Provided")
     description = models.TextField(null=False, default="No Description Provided")
     code = models.ForeignKey(Code, on_delete=models.CASCADE, null=True)
-    question = models.ForeignKey(Question, on_delete=models.SET_NULL, null=True)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
