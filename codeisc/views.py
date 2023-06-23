@@ -1,9 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, CreateView, DetailView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import CreateQuestionForm, CreateCodeForm
+
+from .forms import CreateQuestionForm, CreateCodeForm, CreateAnswerForm
 from .models import Question, Answer, Code
-from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -31,16 +32,6 @@ class HomeView(TemplateView):
         return context
 
 
-# class CodeView(TemplateView):
-#     template_name = 'codeisc/code_page.html'
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['user'] = self.request.user
-#         code_id = self.kwargs['codeID']
-#         context['code'] = Code.objects.filter(id=code_id)
-#         return context
-
 class CodeView(DetailView):
     model = Code
     template_name = 'codeisc/code_page.html'
@@ -48,7 +39,7 @@ class CodeView(DetailView):
 
     def get_object(self, queryset=None):
         code_id = self.kwargs.get("codeID")
-        obj = Code.objects.get(id=code_id)
+        obj = get_object_or_404(Code, pk=code_id)
         return obj
 
     def get_context_data(self, **kwargs):
@@ -76,11 +67,21 @@ class QuestionView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
-        question_id = kwargs['questionID']
-        answer_id = kwargs['answerID'] or None
-        context['question'] = Question.objects.get(id=question_id)
+
+        question_id = kwargs.get('questionID')
+        answer_id = kwargs.get('answerID')
+        question = get_object_or_404(Question, pk=question_id)
+        answers = Answer.objects.filter(question=question)
+        context['question'] = question
+        context['answers'] = answers
+
         if answer_id:
-            context['selected_answer'] = Answer.objects.get(id=answer_id)
+            try:
+                selected_answer = answers.get(pk=answer_id)
+                context['selected_answer'] = selected_answer
+            except Answer.DoesNotExist:
+                pass
+
         return context
 
 
@@ -88,11 +89,15 @@ class QuestionCreateView(CreateView, LoginRequiredMixin):
     model = Question
     form_class = CreateQuestionForm
     template_name = 'codeisc/create_question_page.html'
-    success_url = reverse_lazy('question_detail')
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+    def get_success_url(self):
+        question_id = self.object.pk
+        success_url = reverse('QuestionPage', args=[question_id])
+        return success_url
 
 
 class QuestionsListView(ListView):
@@ -133,3 +138,20 @@ class CodesListView(ListView):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user
         return context
+
+
+class AnswerCreateView(CreateView):
+    model = Answer
+    template_name = 'codeisc/create_answer_page.html'
+    form_class = CreateAnswerForm
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.question = get_object_or_404(Question, pk=self.kwargs.get("questionID", -1))
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        answer_id = self.object.pk
+        question_id = self.object.question.pk
+        success_url = reverse('AnswerPage', kwargs={"questionID": question_id, "answerID": answer_id})
+        return success_url

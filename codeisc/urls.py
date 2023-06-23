@@ -9,5 +9,6 @@ urlpatterns = [
     path("questions/question/<int:questionID>", views.QuestionView.as_view(), name="QuestionPage"),
     path("questions/question/<int:questionID>/<int:answerID>", views.QuestionView.as_view(), name="AnswerPage"),
     path("questions/<slug:username>", views.QuestionsListView.as_view(), name="UserQuestions"),
-    path("questions/create", views.QuestionCreateView.as_view(), name="CreateQuestion")
+    path("questions/create", views.QuestionCreateView.as_view(), name="CreateQuestion"),
+    path("questions/<int:questionID>/create", views.AnswerCreateView.as_view(), name="CreateAnswer")
 ]

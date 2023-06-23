@@ -1,9 +1,7 @@
 {% extends '_layout.html' %}
-
 {% block title %}
-    MiniCodes - Ask a Question
+    MiniCodes - Post an Answer
 {% endblock %}
-
 {% block content %}
     <form method="post" id="questionCreateForm"
           class="bg-gray-200 w-1/2 mx-auto items-center justify-center px-5 border-2 border-red-500 py-3 rounded my-4">
@@ -18,7 +16,7 @@
         </div>
         <div class="mb-4">
             <label class="block text-center font-bold text-lg mb-2">Code</label>
-            <p class="text-decoration-none text-gray-800 hover:text-gray-900 font-bold py-2 px-4 rounded">Select A code</p>
+            <p class="text-decoration-none text-gray-800 hover:text-gray-900 font-bold py-2 px-4 rounded">Select A Code</p>
             {{ form.code }}
         </div>
         <div class="flex items-center justify-center">
