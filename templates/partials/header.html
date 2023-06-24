@@ -35,7 +35,7 @@
             />
             {% if user.is_authenticated %}
                 <div class="ml-4 flex items-center text-white">
-                    <span class="mr-2">Logged in as BGOPC</span>
+                    <span class="mr-2">Logged in as <span class="block w-full whitespace-nowrap">{{ user.username }}</span></span>
                     <img
                             class="h-8 w-8 rounded-full"
                             src="{{ user.profile.url }}"

@@ -1,11 +1,13 @@
-{% load syntax_highlight %}
+{% load pygmentify_tags %}
 
-<div class="bg-white p-4 rounded-lg shadow">
+<div class="bg-white p-4 rounded-lg shadow mb-2">
     <h2 class="text-2xl font-bold">{{ code.short_description }}</h2>
-    <pre class="text-gray-600" id="truncated-code">
-        {{ code.code_text|syntax_highlight:code.type }}
-    </pre>
-    <button type="button" id="expand-button">Expand</button>
+    <div class="mb-4">
+        {% pygmentify %}
+            <pre class="{{ code_language }} code-block bg-gray-200 rounded-lg p-2">{{ code.code_text }}</pre>
+        {% endpygmentify %}
+    </div>
+    <button type="button" style="display: none" id="expand-button">Expand</button>
     <div class="flex items-center text-gray-500 mt-2">
         <div class="mr-2">{{ code.created_at|date:"F j, Y" }}</div>
         <img
@@ -17,12 +19,15 @@
 </div>
 
 <script>
-
     const truncatedCodeElement = document.getElementById('truncated-code');
     const expandButtonElement = document.getElementById('expand-button');
     const maxCharacters = 200;
     const fullCodeText = truncatedCodeElement.innerText;
-    truncatedCodeElement.innerText = fullCodeText.slice(0, maxCharacters) + '...';
+
+    if (fullCodeText.length > maxCharacters) {
+        truncatedCodeElement.innerText = fullCodeText.slice(0, maxCharacters) + '...';
+        expandButtonElement.style.display = "block";
+    }
 
     expandButtonElement.addEventListener('click', function (event) {
         truncatedCodeElement.innerText = fullCodeText;

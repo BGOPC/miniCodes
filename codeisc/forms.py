@@ -15,8 +15,9 @@ class CreateQuestionForm(forms.ModelForm):
                 'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
                          'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300'}),
             'code': forms.CheckboxSelectMultiple(attrs={
-                'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
-                         'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300'}),
+                'class': 'bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
+                         'px-4 mb-3 focus:outline-none focus:bg-gray-300',
+            }),
         }
 
 
@@ -49,6 +50,7 @@ class CreateAnswerForm(forms.ModelForm):
                 'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
                          'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300'}),
             'code': forms.CheckboxSelectMultiple(attrs={
-                'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
-                         'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300'}),
+                'class': 'bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
+                         'px-4 mb-3 focus:outline-none focus:bg-gray-300',
+            }),
         }

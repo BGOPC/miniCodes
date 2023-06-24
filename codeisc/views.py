@@ -6,6 +6,16 @@ from django.views.generic import TemplateView, ListView, CreateView
 from .forms import CreateQuestionForm, CreateCodeForm, CreateAnswerForm
 from .models import Question, Answer, Code
 
+language_mapping = {
+    "TXT": "text",
+    "PY": "python",
+    "JS": "javascript",
+    "C": "c",
+    "CPP": "cpp",
+    "CS": "csharp",
+    "JV": "java",
+}
+
 
 # Create your views here.
 
@@ -43,23 +53,13 @@ class CodeView(TemplateView):
     model = Code
     template_name = 'codeisc/code_page.html'
 
-    language_mapping = {
-        "TXT": "text",
-        "PY": "python",
-        "JS": "javascript",
-        "C": "c",
-        "CPP": "cpp",
-        "CS": "csharp",
-        "JV": "java",
-    }
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user if str(self.request.user) != "AnonymousUser" else None
         code_id = self.kwargs.get("codeID")
         code = get_object_or_404(Code, pk=code_id)
         context['code'] = code
-        context['code_language'] = CodeView.language_mapping.get(code.type, "text")
+        context['code_language'] = language_mapping.get(code.type, "text")
         return context
 
 
@@ -95,7 +95,7 @@ class QuestionView(TemplateView):
                 context['selected_answer'] = selected_answer
             except Answer.DoesNotExist:
                 pass
-
+        context['language_mapping'] = language_mapping
         return context
 
 

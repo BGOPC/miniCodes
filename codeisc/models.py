@@ -1,6 +1,7 @@
 from django.db import models
-from users.models import User
 from django.utils import timezone
+
+from users.models import User
 
 
 # Create your models here.
@@ -20,6 +21,9 @@ class Code(models.Model):
     ]
     type = models.CharField(max_length=3, choices=TYPE_CHOICES, default="TXT")
 
+    def __str__(self):
+        return f"{self.short_description}:{self.author.username}"
+
 
 class Question(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="Question_Author", null=True)
@@ -27,6 +31,9 @@ class Question(models.Model):
     description = models.TextField(null=False, default="No Description Provided")
     code = models.ManyToManyField(Code)
     created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"{self.short_description}:{self.author.username}"
 
 
 class Answer(models.Model):

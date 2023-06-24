@@ -2,14 +2,15 @@
 {% block title %}
     MiniCodes
 {% endblock title %}
-
+{% load language_map %}
 {% block content %}
-    <div class="container mx-auto py-6">
+    <br>
+    <div class="container mx-auto p-4 bg-teal-100 rounded-lg">
         <h1 class="text-4xl font-bold">{{ question.short_description }}</h1>
         <p class="my-4">{{ question.description }}</p>
         <div class="mt-4">
             {% for code in question.code.all %}
-                {% include 'codeisc/includes/code.html' with code=code %}
+                {% include 'codeisc/includes/code.html' with code=code code_language=language_mapping|get_from_dict:code.type %}
             {% endfor %}
         </div>
 
@@ -22,8 +23,11 @@
         <div class="mt-4">
             {% for answer in answers %}
                 {% include 'codeisc/includes/answer.html' with answer=answer %}
-
+            {% empty %}
+                No Answer Available
             {% endfor %}
+            <a class="block appearance-none py-2 px-4 border border-blue-500 rounded text-center" href="{% url 'CreateAnswer' questionID=question.pk %}">Post Your Own Answer</a>
+
         </div>
     </div>
 {% endblock %}
