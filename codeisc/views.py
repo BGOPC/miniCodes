@@ -66,15 +66,14 @@ class QuestionView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user'] = self.request.user
-
-        question_id = kwargs.get('questionID')
-        answer_id = kwargs.get('answerID')
+        context['user'] = self.request.user if str(self.request.user) != "AnonymousUser" else None
+        question_id = kwargs.get('questionID', -1)
+        answer_id = kwargs.get('answerID', None)
         question = get_object_or_404(Question, pk=question_id)
         answers = Answer.objects.filter(question=question)
         context['question'] = question
         context['answers'] = answers
-
+        context['selected_answer'] = None
         if answer_id:
             try:
                 selected_answer = answers.get(pk=answer_id)
@@ -116,7 +115,7 @@ class QuestionsListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user'] = self.request.user
+        context['user'] = self.request.user if str(self.request.user) != "AnonymousUser" else None
         return context
 
 
@@ -136,7 +135,7 @@ class CodesListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user'] = self.request.user
+        context['user'] = self.request.user if str(self.request.user) != "AnonymousUser" else None
         return context
 
 
