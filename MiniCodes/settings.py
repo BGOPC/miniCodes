@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'users',
     'codeisc',
     'pygments',
-    'syntax_highlight',
+    'pygmentify',
 ]
 
 MIDDLEWARE = [

@@ -6,7 +6,7 @@
 
 {% block content %}
     <form method="post" id="questionCreateForm"
-          class="bg-gray-200 w-1/2 mx-auto items-center justify-center px-5 border-2 border-red-500 py-3 rounded my-4">
+          class="bg-gray-200 w-1/2 mx-auto items-center justify-center px-5 border-2 border-teal-500 py-3 rounded my-4">
         {% csrf_token %}
         <div class="mb-4">
             <label class="block text-center font-bold text-lg mb-2">Short Description</label>
@@ -20,10 +20,11 @@
             <label class="block text-center font-bold text-lg mb-2">Code</label>
             <p class="text-decoration-none text-gray-800 hover:text-gray-900 font-bold py-2 px-4 rounded">Select A code</p>
             {{ form.code }}
+            <a href="{% url 'CreateCode' %}" class="block m-2 text-lg text-emerald-800">Create A Code</a>
         </div>
         <div class="flex items-center justify-center">
-            <input type="submit" value="Ask A Question"
-                   class="bg-gray-200 hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+            <input type="submit" value="Post"
+                   class="hover:bg-gray-200 bg-blue-500 hover:border-stone-900 hover:text-blue-700 font-semibold text-white py-2 px-4 border border-blue-500 rounded">
         </div>
     </form>
 {% endblock %}

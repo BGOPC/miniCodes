@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
-from django.views.generic import TemplateView, ListView, CreateView, DetailView
+from django.views.generic import TemplateView, ListView, CreateView
 
 from .forms import CreateQuestionForm, CreateCodeForm, CreateAnswerForm
 from .models import Question, Answer, Code
@@ -21,10 +21,17 @@ class HomeView(TemplateView):
             username = self.request.user.username
             user_codes = Code.objects.filter(author__username=username).order_by('-created_at')
             user_questions = Question.objects.filter(author__username=username).order_by('-created_at')
-            last_user_code_id = user_codes.first().id
-            last_user_question_id = user_questions.first().id
-            last_code = reverse("CodePage", args=[last_user_code_id])
-            last_question = reverse("QuestionPage", args=last_user_question_id)
+            if user_questions.exists():
+                last_user_question_id = user_questions.first().id
+                last_question = reverse("QuestionPage", args=last_user_question_id)
+            else:
+                last_question = reverse("CreateQuestion")
+
+            if user_codes.exists():
+                last_user_code_id = user_codes.first().id
+                last_code = reverse("CodePage", args=[last_user_code_id])
+            else:
+                last_code = reverse("CreateCode")
             context['user'] = self.request.user
             context['last_code'] = last_code
             context['last_question'] = last_question
@@ -32,19 +39,27 @@ class HomeView(TemplateView):
         return context
 
 
-class CodeView(DetailView):
+class CodeView(TemplateView):
     model = Code
     template_name = 'codeisc/code_page.html'
-    context_object_name = "code"
 
-    def get_object(self, queryset=None):
-        code_id = self.kwargs.get("codeID")
-        obj = get_object_or_404(Code, pk=code_id)
-        return obj
+    language_mapping = {
+        "TXT": "text",
+        "PY": "python",
+        "JS": "javascript",
+        "C": "c",
+        "CPP": "cpp",
+        "CS": "csharp",
+        "JV": "java",
+    }
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user if str(self.request.user) != "AnonymousUser" else None
+        code_id = self.kwargs.get("codeID")
+        code = get_object_or_404(Code, pk=code_id)
+        context['code'] = code
+        context['code_language'] = CodeView.language_mapping.get(code.type, "text")
         return context
 
 
@@ -58,7 +73,7 @@ class CodeCreateView(CreateView, LoginRequiredMixin):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('code_detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy('CodePage', kwargs={'codeID': self.object.pk})
 
 
 class QuestionView(TemplateView):
