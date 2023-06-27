@@ -14,16 +14,16 @@ from . import forms
 # Create your views here.
 
 class UserView(LoginRequiredMixin, TemplateView):
-    template_name = "users/user.html"
+    template_name = "users/user_page.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        current_user = self.request.user
+        context['user'] = self.request.user if self.request.user.is_authenticated else None
         return context
 
 
 class LoginView(authLoginView):
-    template_name = 'users/login.html'
+    template_name = 'users/login_page.html'
     authentication_form = forms.LoginForm
     redirect_authenticated_user = True
 
@@ -32,7 +32,7 @@ class LoginView(authLoginView):
 
 
 class newUserView(SuccessMessageMixin, CreateView):
-    template_name = "users/register.html"
+    template_name = "users/register_page.html"
     form_class = forms.NewUserForm
     success_url = reverse_lazy('login')
     success_message = "Your profile was created successfully"
