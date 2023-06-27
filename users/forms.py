@@ -10,12 +10,11 @@ from users.models import User
 
 class NewUserForm(UserCreationForm):
     email = forms.EmailField(
-        label=_('Email'),
         required=True,
         widget=forms.EmailInput(attrs={
-            'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 '
-                     'mb-3 leading-tight focus:outline-none text-center focus:bg-white',
-            'placeholder': _('Email')
+            "class": "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 "
+                     "mb-3 leading-tight focus:outline-none text-center focus:bg-white",
+            "placeholder": _("Email"),
         })
     )
     phone = PhoneNumberField(
@@ -25,61 +24,64 @@ class NewUserForm(UserCreationForm):
         widget=PhoneNumberPrefixWidget(
             initial='IR',
             attrs={
-                'class': 'appearance-none block w-full bg-gray-200 text-center text-gray-700 border border-red-500 '
+                'class': 'appearance-none blطock w-full bg-gray-200 text-center text-gray-700 border border-red-500 '
                          'rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white',
                 'placeholder': _('Phone number')
             }
         )
     )
-    profile = forms.ImageField(
-        label=_('Profile picture'),
-        required=False,
-        widget=ClearableFileInput(attrs={
-            'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 '
-                     'mb-3 leading-tight focus:outline-none text-center focus:bg-white',
-            'placeholder': _('Profile picture')
-        })
-    )
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'password1', 'password2', 'profile')
-        labels = {
-            'first_name': _('First Name'),
-            'last_name': _('Last Name'),
-            'password1': _('Password'),
-            'password2': _('Repeat Password')
-        }
+        fields = ("username", "first_name", "last_name", "email", "password1", "password2", "profile")
         help_texts = {
-            'password1': _('Your password should not be fully numeric and should have at least 8 characters.')
+            'password1': _("Your password shouldn't be fully numeric and should have at least 8 characters."),
+        }
+        labels = {
+            'username': _("User Name"),
+            'first_name': _("First Name"),
+            'last_name': _("Last Name"),
+            'password1': _("Password"),
+            'password2': _("Repeat Password"),
         }
         widgets = {
+            'username': forms.TextInput(attrs={
+                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3"
+                         "mb-3 leading-tight focus:outline-none text-center focus:bg-white px-4",
+                "placeholder": _("User Name"),
+            }),
             'first_name': forms.TextInput(attrs={
-                'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3'
-                         'mb-3 leading-tight focus:outline-none text-center focus:bg-white px-4',
-                'placeholder': _('First Name')
+                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3"
+                         "mb-3 leading-tight focus:outline-none text-center focus:bg-white px-4",
+                "placeholder": _("First Name"),
             }),
             'last_name': forms.TextInput(attrs={
-                'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3'
-                         'mb-3 leading-tight focus:outline-none text-center focus:bg-white px-4',
-                'placeholder': _('Last Name')
+                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3"
+                         "mb-3 leading-tight focus:outline-none text-center focus:bg-white px-4",
+                "placeholder": _("Last Name"),
             }),
             'password1': forms.PasswordInput(attrs={
                 'autocomplete': 'current-password',
-                'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3'
-                         'mb-3 leading-tight focus:outline-none focus:bg-white text-center px-4',
-                'placeholder': _('Password')
+                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3"
+                         "mb-3 leading-tight focus:outline-none focus:bg-white text-center px-4",
+                "placeholder": _("Password"),
             }),
             'password2': forms.PasswordInput(attrs={
                 'autocomplete': 'current-password',
-                'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3'
-                         'mb-3 leading-tight focus:outline-none focus:bg-white text-center px-4',
-                'placeholder': _('Repeat Password')
+                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3"
+                         "mb-3 leading-tight focus:outline-none focus:bg-white text-center px-4",
+                "placeholder": _("Repeat Password"),
+            }),
+            "profile": ClearableFileInput(attrs={
+                'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 '
+                         'mb-3 leading-tight focus:outline-none text-center focus:bg-white',
+                'placeholder': _('Profile picture')
             })
+
         }
 
     def save(self, commit=True):
-        user = super().save(commit=False)
+        user = super(NewUserForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
         if commit:
             user.save()
