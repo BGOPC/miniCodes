@@ -24,7 +24,7 @@ class NewUserForm(UserCreationForm):
         widget=PhoneNumberPrefixWidget(
             initial='IR',
             attrs={
-                'class': 'appearance-none blطock w-full bg-gray-200 text-center text-gray-700 border border-red-500 '
+                'class': 'appearance-none block w-full bg-gray-200 text-center text-gray-700 border border-red-500 '
                          'rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white',
                 'placeholder': _('Phone number')
             }
@@ -33,7 +33,7 @@ class NewUserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ("username", "first_name", "last_name", "email", "password1", "password2", "profile")
+        fields = ("username", "first_name", "last_name", "email", "description", "password1", "password2", "profile")
         help_texts = {
             'password1': _("Your password shouldn't be fully numeric and should have at least 8 characters."),
         }
@@ -41,6 +41,7 @@ class NewUserForm(UserCreationForm):
             'username': _("User Name"),
             'first_name': _("First Name"),
             'last_name': _("Last Name"),
+            'description': _("Description"),
             'password1': _("Password"),
             'password2': _("Repeat Password"),
         }
@@ -60,6 +61,12 @@ class NewUserForm(UserCreationForm):
                          "mb-3 leading-tight focus:outline-none text-center focus:bg-white px-4",
                 "placeholder": _("Last Name"),
             }),
+            'description': forms.Textarea(attrs={
+                'rows': 5, 'cols': 30,
+                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3"
+                         "mb-3 leading-tight focus:outline-none text-center focus:bg-white px-4",
+                "placeholder": _("Placeholder"),
+            }),
             'password1': forms.PasswordInput(attrs={
                 'autocomplete': 'current-password',
                 "class": "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3"
@@ -73,8 +80,8 @@ class NewUserForm(UserCreationForm):
                 "placeholder": _("Repeat Password"),
             }),
             "profile": ClearableFileInput(attrs={
-                'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 '
-                         'mb-3 leading-tight focus:outline-none text-center focus:bg-white',
+                'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 '
+                         'mb-3 leading-tight focus:outline-none text-center focus:bg-white px-4',
                 'placeholder': _('Profile picture')
             })
 
@@ -89,21 +96,29 @@ class NewUserForm(UserCreationForm):
 
 
 class LoginForm(AuthenticationForm):
+    username = forms.CharField(label='Email', widget=forms.EmailInput(attrs={
+        'class': "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 "
+                 "mb-3 leading-tight focus:outline-none focus:bg-white text-center",
+        'placeholder': 'Email'
+    }))
+    password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={
+        'class': "appearance-none block w-full "
+                 "bg-gray-200 text-gray-700 border "
+                 "border-red-500 rounded py-3 px-4 mb-3 "
+                 "leading-tight focus:outline-none "
+                 "focus:bg-white text-center",
+        'placeholder': 'Password'
+    }))
 
     def __init__(self, request=None, *args, **kwargs):
         super().__init__(request=None, *args, **kwargs)
         self.fields['username'].label = 'email'
         self.fields['username'].widget = forms.TextInput(attrs={
-            "class": "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 "
-                     "mb-3 leading-tight focus:outline-none focus:bg-white text-center",
+            "class": "",
             "placeholder": "email"
         })
         self.fields['password'].label = 'PassWord'
         self.fields['password'].widget = forms.PasswordInput(attrs={'autocomplete': 'current-password',
-                                                                    "class": "appearance-none block w-full "
-                                                                             "bg-gray-200 text-gray-700 border "
-                                                                             "border-red-500 rounded py-3 px-4 mb-3 "
-                                                                             "leading-tight focus:outline-none "
-                                                                             "focus:bg-white text-center",
+                                                                    "class": "",
                                                                     "placeholder": "Password"
                                                                     })
