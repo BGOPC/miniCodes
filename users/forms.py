@@ -110,15 +110,3 @@ class LoginForm(AuthenticationForm):
         'placeholder': 'Password'
     }))
 
-    def __init__(self, request=None, *args, **kwargs):
-        super().__init__(request=None, *args, **kwargs)
-        self.fields['username'].label = 'email'
-        self.fields['username'].widget = forms.TextInput(attrs={
-            "class": "",
-            "placeholder": "email"
-        })
-        self.fields['password'].label = 'PassWord'
-        self.fields['password'].widget = forms.PasswordInput(attrs={'autocomplete': 'current-password',
-                                                                    "class": "",
-                                                                    "placeholder": "Password"
-                                                                    })
