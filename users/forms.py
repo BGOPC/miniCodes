@@ -96,10 +96,10 @@ class NewUserForm(UserCreationForm):
 
 
 class LoginForm(AuthenticationForm):
-    username = forms.CharField(label='Email', widget=forms.EmailInput(attrs={
+    username = forms.CharField(label='Username', widget=forms.TextInput(attrs={
         'class': "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 "
                  "mb-3 leading-tight focus:outline-none focus:bg-white text-center",
-        'placeholder': 'Email'
+        'placeholder': 'Username'
     }))
     password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={
         'class': "appearance-none block w-full "

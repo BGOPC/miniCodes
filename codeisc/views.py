@@ -123,8 +123,8 @@ class QuestionsListView(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        user_slug = self.kwargs.get("username")
-        if user_slug:
+        user_slug = self.kwargs.get("username", None)
+        if user_slug != "None" and user_slug:
             queryset = queryset.filter(author__username=user_slug)
         return queryset
 
@@ -143,8 +143,8 @@ class CodesListView(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        user_slug = self.kwargs.get("username")
-        if user_slug:
+        user_slug = self.kwargs.get("username", None)
+        if user_slug != "None" and user_slug:
             queryset = queryset.filter(author__username=user_slug)
         return queryset
 

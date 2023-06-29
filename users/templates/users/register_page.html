@@ -16,6 +16,10 @@
             {{ form.last_name }}
         </div>
         <div>
+            <label class="block text-center font-weight-bold text-lg">User Name</label>
+            {{ form.username }}
+        </div>
+        <div>
             <label class="block text-center font-weight-bold text-lg">Email</label>
             {{ form.email }}
         </div>
@@ -53,5 +57,9 @@
                 Register
             </button>
         </div>
+    <div>
+        errors:
+        {{ form.errors }}
+    </div>
     </form>
 {% endblock %}
