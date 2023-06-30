@@ -7,7 +7,9 @@ from django.shortcuts import resolve_url, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, CreateView
+
 from MiniCodes import settings
+from codeisc.models import *
 from . import forms
 
 
@@ -18,7 +20,14 @@ class UserView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user'] = self.request.user if self.request.user.is_authenticated else None
+        user = self.request.user if self.request.user.is_authenticated else None
+        context['user'] = user
+        answers_by_user_count = Answer.objects.filter(author__username=user.username).count()
+        codes_by_user_count = Code.objects.filter(author__username=user.username).count()
+        questions_by_user_count = Code.objects.filter(author__username=user.username).count()
+        context['answers_count'] = answers_by_user_count
+        context['codes_count'] = codes_by_user_count
+        context['questions_count'] = questions_by_user_count
         return context
 
 

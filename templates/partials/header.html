@@ -1,32 +1,46 @@
 {% load static %}
 <header class="bg-teal-500 py-4">
     <div class="container mx-auto flex items-center justify-between">
-        <a href="{% url 'home' %}">
-            <div class="flex items-center">
-                <button class="text-white focus:outline-none">
-                    <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-6 w-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                    >
-                        <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16"
-                        ></path>
-                    </svg>
-                </button>
-                <img
-                        class="h-8 ml-2"
-                        src="{% static 'favicon/favicon-32x32.png' %}"
-                        alt="MiniCodes Logo"
-                />
-                <div class="ml-4 text-white">MiniCodes</div>
+        <div class="relative">
+            <button id="hamburger-button" class="text-white focus:outline-none" onclick="toggleHamburgerMenu();">
+                <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                >
+                    <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"
+                    ></path>
+                </svg>
+            </button>
+            <div id="hamburger-menu"
+                 class="hidden absolute w-max top-8 right-0 left-4 mt-2 mr-2 bg-white rounded-lg shadow-md">
+                <ul class="py-2 px-4 ">
+                    <li class="my-2 p-2 rounded-lg">
+                        <a href="{% url 'CreateQuestion' %}" class="text-gray-600 hover:text-blue-500">Ask a question</a>
+                    </li>
+                    <hr class="bg-black h-1">
+                    <li class="my-2 p-2 rounded-lg">
+                        <a href="{% url 'CreateCode' %}" class="text-gray-600 hover:text-blue-500">Share a code</a>
+                    </li>
+                    <hr class="bg-black h-1">
+                    <li class="my-2 p-2 rounded-lg">
+                        <a href="{% url 'logout' %}" class="text-red-900 hover:text-blue-500 font-semibold">Log out</a>
+                    </li>
+                </ul>
             </div>
-        </a>
+        </div>
+        <div class="flex items-center">
+            <a href="{% url 'home' %}" class="flex items-center">
+                <img class="h-8 ml-2" src="{% static 'favicon/favicon-32x32.png' %}" alt="MiniCodes Logo"/>
+                <div class="ml-4 text-white">MiniCodes</div>
+            </a>
+        </div>
         <div class="flex items-center flex-grow m-2">
             <input
                     type="text"
@@ -35,7 +49,8 @@
             />
             {% if user.is_authenticated %}
                 <div class="ml-4 flex items-center text-white">
-                    <span class="mr-2">Logged in as <span class="block w-full whitespace-nowrap">{{ user.username }}</span></span>
+                    <span class="mr-2">Logged in as <span
+                            class="block w-full whitespace-nowrap">{{ user.username }}</span></span>
                     <img
                             class="h-8 w-8 rounded-full"
                             src="{{ user.profile.url }}"
