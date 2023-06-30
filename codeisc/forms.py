@@ -41,7 +41,7 @@ class CreateCodeForm(forms.ModelForm):
 class CreateAnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
-        fields = ["short_description", "description", "question", "code"]
+        fields = ["short_description", "description", "code"]
         widgets = {
             'short_description': forms.TextInput(attrs={
                 'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
