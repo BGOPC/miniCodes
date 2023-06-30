@@ -9,16 +9,37 @@
           class="bg-gray-200 w-1/2 mx-auto items-center justify-center px-5 border-2 border-teal-500 py-3 rounded my-4">
         {% csrf_token %}
         <div class="mb-4">
-            <label class="block text-center font-bold text-lg mb-2">Short Description</label>
+            <label class="block text-center font-bold text-lg mb-2">Title</label>
             {{ form.short_description }}
+            {% if form.short_description.errors %}
+                <ul class="text-red-500 list-disc pl-4 mt-2">
+                    {% for error in form.short_description.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </div>
         <div class="mb-4">
             <label class="block text-center font-bold text-lg mb-2">Description</label>
             {{ form.description }}
+            {% if form.description.errors %}
+                <ul class="text-red-500 list-disc pl-4 mt-2">
+                    {% for error in form.description.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </div>
         <div class="mb-4">
             <label class="block text-center font-bold text-lg mb-2">Select Codes</label>
             {{ form.code }}
+            {% if form.code.errors %}
+                <ul class="text-red-500 list-disc pl-4 mt-2">
+                    {% for error in form.code.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
             <a href="{% url 'CreateCode' %}" class="block m-2 text-lg text-emerald-800">Create A Code</a>
         </div>
         <div class="flex items-center justify-center">
