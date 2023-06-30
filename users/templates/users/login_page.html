@@ -3,41 +3,40 @@
     LogIn to Your Minicodes Account
 {% endblock %}
 {% block content %}
-    <form
-            method="post"
-            id="signupForm"
-            class="bg-slate-400 w-1/2 mx-auto items-center justify-center px-5 border-2 border-gray-900 py-3 rounded-3 h-100 my-4"
-    >
+    <form method="post" id="signupForm"
+          class="bg-slate-400 w-1/2 mx-auto items-center justify-center px-5 border-2 border-gray-900 py-3 rounded-3 h-100 my-4">
         {% csrf_token %}
         <div>
             <label class="block text-center font-weight-bold text-lg">Email</label>
             {{ form.username }}
+            {% if form.username.errors %}
+                <ul class="text-red-500 list-disc pl-4 mt-2">
+                    {% for error in form.username.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
         </div>
         <div>
             <label class="block text-center font-weight-bold text-lg">Password</label>
             {{ form.password }}
-            {% if form.password.error_messages %}
-                <small class="text-red-400">
-                    {{ form.password.error_messages }}
-                </small>
+            {% if form.password.errors %}
+                <ul class="text-red-500 list-disc pl-4 mt-2">
+                    {% for error in form.password.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
             {% endif %}
         </div>
         <div class="flex items-baseline justify-center">
-            <a
-                    href="{% url 'register' %}"
-                    class="text-decoration-none text-gray-800 hover:text-gray-900 font-bold py-2 px-4 rounded"
-            >
+            <a href="{% url 'register' %}"
+               class="text-decoration-none text-gray-800 hover:text-gray-900 font-bold py-2 px-4 rounded">
                 Don't Have an account? Register
             </a>
         </div>
         <div class="flex items-baseline justify-center">
             <input type="submit" value="Login"
-                   class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900"
-            >
+                   class="px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">
         </div>
-    <div>
-        errors:
-        {{ form.errors }}
-    </div>
     </form>
 {% endblock %}

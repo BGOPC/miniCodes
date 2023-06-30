@@ -52,7 +52,7 @@ class NewUserForm(UserCreationForm):
                 "placeholder": _("User Name"),
             }),
             'first_name': forms.TextInput(attrs={
-                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3"
+                "class": "appearance-none block w-max bg-gray-200 text-gray-700 border border-red-500 rounded py-3"
                          "mb-3 leading-tight focus:outline-none text-center focus:bg-white px-4",
                 "placeholder": _("First Name"),
             }),
