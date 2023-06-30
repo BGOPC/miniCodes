@@ -40,6 +40,6 @@ class Answer(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="Answer_Author")
     short_description = models.CharField(max_length=100, null=False, default="No Description Provided")
     description = models.TextField(null=False, default="No Description Provided")
-    code = models.ForeignKey(Code, on_delete=models.CASCADE, null=True)
+    code = models.ManyToManyField(Code, blank=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
