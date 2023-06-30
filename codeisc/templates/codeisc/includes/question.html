@@ -1,4 +1,5 @@
 <div class="bg-white p-4 rounded-lg shadow">
+    <a class="appearance-none" href="{% url 'QuestionPage' questionID=question.pk %}">
     <h2 class="text-2xl font-bold">{{ question.short_description }}</h2>
     <p class="text-gray-600">{{ question.description|truncatechars:100 }}</p>
     <div class="flex items-center text-gray-500 mt-2">
@@ -9,4 +10,5 @@
                 alt="{{ question.author.username }} profile picture"
         />
     </div>
+    </a>
 </div>

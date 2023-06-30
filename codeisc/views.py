@@ -33,7 +33,7 @@ class HomeView(TemplateView):
             user_questions = Question.objects.filter(author__username=username).order_by('-created_at')
             if user_questions.exists():
                 last_user_question_id = user_questions.first().id
-                last_question = reverse("QuestionPage", args=last_user_question_id)
+                last_question = reverse("QuestionPage", args=[last_user_question_id])
             else:
                 last_question = reverse("CreateQuestion")
 
@@ -154,7 +154,7 @@ class CodesListView(ListView):
         return context
 
 
-class AnswerCreateView(CreateView):
+class AnswerCreateView(LoginRequiredMixin, CreateView):
     model = Answer
     template_name = 'codeisc/create_answer_page.html'
     form_class = CreateAnswerForm

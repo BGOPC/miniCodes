@@ -16,12 +16,18 @@
         </div>
         <div class="mb-4">
             <label class="block text-center font-bold text-lg mb-2">Code</label>
-            <p class="text-decoration-none text-gray-800 hover:text-gray-900 font-bold py-2 px-4 rounded">Select A Code</p>
+            <p class="text-decoration-none text-gray-800 hover:text-gray-900 font-bold py-2 px-4 rounded">Select A
+                Code</p>
             {{ form.code }}
         </div>
         <div class="flex items-center justify-center">
-            <input type="submit" value="Answer The Question"
-                   class="bg-gray-200 hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+            <button type="submit"
+                    class="bg-gray-200 hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                Answer The Question
+            </button>
+        </div>
+        <div>errors:
+            {{ form.errors }}
         </div>
     </form>
 {% endblock %}
