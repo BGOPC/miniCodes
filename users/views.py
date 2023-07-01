@@ -1,5 +1,5 @@
 from django.contrib.auth import logout
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.views import LoginView as authLoginView
 from django.contrib.auth.views import PasswordResetView as authPasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -37,10 +37,20 @@ class UserView(TemplateView):
         return context
 
 
-class LoginView(authLoginView):
+class LoginView(UserPassesTestMixin, authLoginView):
     template_name = 'users/login_page.html'
     authentication_form = forms.LoginForm
     redirect_authenticated_user = True
+
+    def form_valid(self, form):
+        user = form.get_user()
+
+        if user and not user.is_active:
+            form.add_error('username', 'User is deleted.')
+            form.add_error('password', 'User is deleted.')
+            return self.form_invalid(form)
+
+        return super().form_valid(form)
 
     def get_default_redirect_url(self):
         return resolve_url(settings.LOGIN_REDIRECT_URL)
