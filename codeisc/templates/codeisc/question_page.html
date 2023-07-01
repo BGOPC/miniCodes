@@ -13,11 +13,6 @@
             {% endfor %}
         </div>
 
-        <div class="mt-6 bg-white p-4 rounded-lg">
-            <p class="text-sm font-semibold">Author: <a href="{{ question.author.profile.url }}"
-                                                        class="text-blue-500">{{ question.author.username }}</a></p>
-            <p class="text-sm">Created at: {{ question.created_at|date:"F j, Y" }}</p>
-        </div>
         <h2 class="text-2xl font-bold mt-6">Answers</h2>
         <div class="mt-4">
             {% for answer in answers %}
@@ -25,8 +20,22 @@
             {% empty %}
                 No Answer Available
             {% endfor %}
-            <a class="block appearance-none py-2 px-4 border border-blue-500 rounded text-center" href="{% url 'CreateAnswer' questionID=question.pk %}">Post Your Own Answer</a>
+            <a class="block appearance-none py-2 px-4 border border-blue-500 rounded text-center"
+               href="{% url 'CreateAnswer' questionID=question.pk %}">Post Your Own Answer</a>
 
+        </div>
+        <div class="mt-6 bg-white p-4 rounded-lg">
+            <p class="text-sm font-semibold"><a href="{% url 'userProfile' username=question.author.username %}"
+                                                class="text-blue-500">
+                <div class="flex items-center flex-column text-gray-500 mt-2">
+                    <div class="flex space-x-2">
+                        <div class="mr-2"><span class="text-black">Author:</span> {{ question.author.username }}</div>
+                        <img class="h-6 w-6 rounded-full" src="{{ question.author.profile.url }}"
+                             alt="{{ question.author.username }} profile picture"/>
+                    </div>
+                </div>
+            </a></p>
+            <p class="text-sm">Created at: {{ question.created_at|date:"F j, Y" }}</p>
         </div>
     </div>
 {% endblock %}
