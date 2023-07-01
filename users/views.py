@@ -1,11 +1,9 @@
-from django.contrib.auth import logout
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.views import LoginView as authLoginView
 from django.contrib.auth.views import PasswordResetView as authPasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import resolve_url, redirect
+from django.shortcuts import resolve_url
 from django.urls import reverse_lazy
-from django.views import View
 from django.views.generic import TemplateView, CreateView
 
 from MiniCodes import settings
@@ -37,7 +35,7 @@ class UserView(TemplateView):
         return context
 
 
-class LoginView(UserPassesTestMixin, authLoginView):
+class LoginView(authLoginView):
     template_name = 'users/login_page.html'
     authentication_form = forms.LoginForm
     redirect_authenticated_user = True
@@ -61,16 +59,6 @@ class newUserView(SuccessMessageMixin, CreateView):
     form_class = forms.NewUserForm
     success_url = reverse_lazy('login')
     success_message = "Your profile was created successfully"
-
-
-class LogoutView(View):
-    def get(self, request):
-        logout(request)
-        return redirect('home')
-
-    def post(self, request):
-        logout(request)
-        return redirect('home')
 
 
 class PasswordResetView(authPasswordResetView, SuccessMessageMixin):
