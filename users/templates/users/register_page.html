@@ -15,24 +15,10 @@
         <div>
             <label class="block text-center font-weight-bold text-lg">User Name</label>
             {{ form.username }}
-            {% if form.username.errors %}
-                <ul class="text-red-500 list-disc pl-4 mt-2">
-                    {% for error in form.username.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
         </div>
         <div>
             <label class="block text-center font-weight-bold text-lg">Email</label>
             {{ form.email }}
-            {% if form.email.errors %}
-                <ul class="text-red-500 list-disc pl-4 mt-2">
-                    {% for error in form.email.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
         </div>
         <div>
             <label class="block text-center font-weight-bold text-lg">Description</label>
@@ -42,28 +28,38 @@
             <label class="block text-center font-weight-bold text-lg">Phone Number</label>
             {{ form.phone }}
         </div>
-        <label class="block text-center font-weight-bold text-lg">Password</label>
+        <label class="block text-center font-weight-bold text-lg">Password and Repeat Password</label>
         <div class="flex gap-x-4 items-center">
             {{ form.password1 }}
-            {% if form.password1.errors %}
-                <ul class="text-red-500 list-disc pl-4 mt-2">
-                    {% for error in form.password1.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
             {{ form.password2 }}
-            {% if form.password2.errors %}
-                <ul class="text-red-500 list-disc pl-4 mt-2">
-                    {% for error in form.password2.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
+
         </div>
         <div>
             <label class="block text-center font-weight-bold text-lg">Profile Picture</label>
             {{ form.profile }}
         </div>
         <div class="flex items-baseline justify-center">
+            <a
+                    href="{% url 'login' %}"
+                    class="text-decoration-none text-gray-800 hover:text-gray-900 font-bold py-2 px-4 rounded"
+            >
+                Have an account? Login
+            </a>
+        </div>
+        <div class="text-center">
+            <button type="submit"
+                    class="bg-gray-900 text-white active:bg-gray-700 uppercase text-sm font-bold px-6 py-3 rounded shadow hover:bg-gray-800 outline-none focus:outline-none mr-1 mb-1 w-1/4">
+                Register
+            </button>
+        </div>
+        {% if form.errors %}
+            <ul class="text-red-900 list-disc pl-4 mt-2">
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </form>
 {% endblock %}

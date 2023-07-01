@@ -1,3 +1,4 @@
+from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView as authLoginView
 from django.contrib.auth.views import PasswordResetView as authPasswordResetView
@@ -57,8 +58,14 @@ class LoginView(authLoginView):
 class newUserView(SuccessMessageMixin, CreateView):
     template_name = "users/register_page.html"
     form_class = forms.NewUserForm
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('profile')
     success_message = "Your profile was created successfully"
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        user = form.save()
+        login(self.request, user)
+        return response
 
 
 class PasswordResetView(authPasswordResetView, SuccessMessageMixin):
