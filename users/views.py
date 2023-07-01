@@ -1,9 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView as authLoginView
 from django.contrib.auth.views import PasswordResetView as authPasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import resolve_url
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, DeleteView
 
 from MiniCodes import settings
 from codeisc.models import *
@@ -69,3 +70,18 @@ class PasswordResetView(authPasswordResetView, SuccessMessageMixin):
                       " If you don't receive an email, " \
                       "please make sure you've entered the address you registered with, and check your spam folder."
     success_url = reverse_lazy('profile')
+
+
+class DeleteAccountView(LoginRequiredMixin, DeleteView):
+    model = User
+    template_name = 'users/delete_account.html'
+    success_url = reverse_lazy('home')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user if self.request.user.is_authenticated else None
+        context['user'] = user
+        return context

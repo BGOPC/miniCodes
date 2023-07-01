@@ -47,18 +47,18 @@ class NewUserForm(UserCreationForm):
         }
         widgets = {
             'username': forms.TextInput(attrs={
-                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3"
-                         "mb-3 leading-tight focus:outline-none text-center focus:bg-white px-4",
+                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded"
+                         "mb-3 leading-tight focus:outline-none text-center focus:bg-white px-4 py-2",
                 "placeholder": _("User Name"),
             }),
             'first_name': forms.TextInput(attrs={
-                "class": "appearance-none block w-max bg-gray-200 text-gray-700 border border-red-500 rounded py-3"
-                         "mb-3 leading-tight focus:outline-none text-center focus:bg-white px-4",
+                "class": "appearance-none inline-block w-1/2 bg-gray-200 text-gray-700 border border-red-500 rounded"
+                         "mb-3 leading-tight focus:outline-none text-center focus:bg-white px-4 py-2",
                 "placeholder": _("First Name"),
             }),
             'last_name': forms.TextInput(attrs={
-                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3"
-                         "mb-3 leading-tight focus:outline-none text-center focus:bg-white px-4",
+                "class": "appearance-none inline-block w-1/2 bg-gray-200 text-gray-700 border border-red-500 rounded"
+                         "mb-3 leading-tight focus:outline-none text-center focus:bg-white px-4 py-2",
                 "placeholder": _("Last Name"),
             }),
             'description': forms.Textarea(attrs={
@@ -69,13 +69,13 @@ class NewUserForm(UserCreationForm):
             }),
             'password1': forms.PasswordInput(attrs={
                 'autocomplete': 'current-password',
-                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3"
+                "class": "appearance-none block w-1/2 my-2 bg-gray-200 text-gray-700 border border-red-500 rounded py-3"
                          "mb-3 leading-tight focus:outline-none focus:bg-white text-center px-4",
                 "placeholder": _("Password"),
             }),
             'password2': forms.PasswordInput(attrs={
                 'autocomplete': 'current-password',
-                "class": "appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3"
+                "class": "appearance-none block w-1/2 my-2 bg-gray-200 text-gray-700 border border-red-500 rounded py-3"
                          "mb-3 leading-tight focus:outline-none focus:bg-white text-center px-4",
                 "placeholder": _("Repeat Password"),
             }),
@@ -109,4 +109,3 @@ class LoginForm(AuthenticationForm):
                  "focus:bg-white text-center",
         'placeholder': 'Password'
     }))
-

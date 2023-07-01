@@ -7,8 +7,8 @@
           class="bg-slate-400 w-1/2 mx-auto items-center justify-center px-5 border-2 border-gray-900 py-3 rounded-3 h-100 my-4"
           enctype="multipart/form-data">
         {% csrf_token %}
-        <div>
-            <label class="block text-center font-weight-bold text-lg">First And Last Name</label>
+        <label class="block text-center font-weight-bold text-lg">First And Last Name</label>
+        <div class="flex gap-x-4">
             {{ form.first_name }}
             {{ form.last_name }}
         </div>
@@ -42,8 +42,8 @@
             <label class="block text-center font-weight-bold text-lg">Phone Number</label>
             {{ form.phone }}
         </div>
-        <div>
-            <label class="block text-center font-weight-bold text-lg">Password</label>
+        <label class="block text-center font-weight-bold text-lg">Password</label>
+        <div class="flex gap-x-4 items-center">
             {{ form.password1 }}
             {% if form.password1.errors %}
                 <ul class="text-red-500 list-disc pl-4 mt-2">
@@ -52,9 +52,6 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-        </div>
-        <div>
-            <label class="block text-center font-weight-bold text-lg">Repeat Password</label>
             {{ form.password2 }}
             {% if form.password2.errors %}
                 <ul class="text-red-500 list-disc pl-4 mt-2">

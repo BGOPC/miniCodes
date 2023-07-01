@@ -1,0 +1,13 @@
+{% extends '_layout.html' %}
+{% block title %}
+    MiniCodes - Confirm Account Deletion
+{% endblock %}
+{% block content %}
+    <form method="post" id="signupForm"
+          class="bg-slate-400 w-1/2 mx-auto items-center justify-center px-5 border-2 border-gray-900 py-3 rounded-3 h-100 my-4"
+          action="{% url 'delete_account' %}">
+        {% csrf_token %}
+            <h1 class="text-6xl text-center text-uppercase tracking-wide text-indigo-900 font-bold">Are you sure you want to delete your account?</h1>
+            <input type="submit" value="Delete Account" class="text-4xl font-bold p-6 m-4 bg-white border border-red-900 text-red-900">
+    </form>
+{% endblock %}
