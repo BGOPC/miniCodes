@@ -17,5 +17,11 @@ class User(AbstractUser):
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["email", "first_name", "last_name", "password"]
 
+    def delete(self, *args, **kwargs):
+        # Instead of deleting the user, modify the username and set the is_active flag to False
+        self.username = f'user{self.id}'
+        self.is_active = False
+        self.save()
+
     def __str__(self):
         return f"{self.username}:{self.first_name} {self.last_name}"
