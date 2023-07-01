@@ -1,4 +1,3 @@
-from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.views import LoginView as authLoginView
 from django.contrib.auth.views import PasswordResetView as authPasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
