@@ -7,7 +7,7 @@
           class="bg-slate-400 w-1/2 mx-auto items-center justify-center px-5 border-2 border-gray-900 py-3 rounded-3 h-100 my-4">
         {% csrf_token %}
         <div>
-            <label class="block text-center font-weight-bold text-lg">Email</label>
+            <label class="block text-center font-weight-bold text-lg">User Name</label>
             {{ form.username }}
             {% if form.username.errors %}
                 <ul class="text-red-500 list-disc pl-4 mt-2">

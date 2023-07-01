@@ -15,19 +15,25 @@ from . import forms
 
 # Create your views here.
 
-class UserView(LoginRequiredMixin, TemplateView):
+class UserView(TemplateView):
     template_name = "users/user_page.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user if self.request.user.is_authenticated else None
-        context['user'] = user
-        answers_by_user_count = Answer.objects.filter(author__username=user.username).count()
-        codes_by_user_count = Code.objects.filter(author__username=user.username).count()
-        questions_by_user_count = Code.objects.filter(author__username=user.username).count()
+        username = kwargs.get('username', None)
+        if username is None:
+            user_profile_object = self.request.user if self.request.user.is_authenticated else None
+        else:
+            user_profile_object = User.objects.get(username=username)
+        context['user_profile_object'] = user_profile_object
+        answers_by_user_count = Answer.objects.filter(author__username=user_profile_object.username).count()
+        codes_by_user_count = Code.objects.filter(author__username=user_profile_object.username).count()
+        questions_by_user_count = Code.objects.filter(author__username=user_profile_object.username).count()
         context['answers_count'] = answers_by_user_count
         context['codes_count'] = codes_by_user_count
         context['questions_count'] = questions_by_user_count
+        context['user'] = user
         return context
 
 
