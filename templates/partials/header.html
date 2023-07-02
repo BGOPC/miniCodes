@@ -42,7 +42,7 @@
                 <div class="ml-4 text-white">MiniCodes</div>
             </a>
         </div>
-        <div class="flex items-center flex-grow m-2">
+        <div class="flex items-center flex-grow m-2 sm:flex-row">
             <input
                     type="text"
                     class="px-4 py-2 rounded-lg w-full"
@@ -51,8 +51,7 @@
             {% if user.is_authenticated %}
                 <a href="{% url 'profile' %}">
                     <div class="ml-4 flex items-center text-white">
-                    <span class="mr-2">Logged in as <span
-                            class="block w-full whitespace-nowrap">{{ user.username }}</span></span>
+                        <span class="mr-2 block w-full whitespace-nowrap">{{ user.username }}</span>
                         <img
                                 class="h-8 w-8 rounded-full"
                                 src="{{ user.profile.url }}"
