@@ -6,148 +6,151 @@
 
 {% block content %}
     <div class="container mx-auto mt-8 flex">
-        <nav class="w-1/4 pr-8">
-            {% if user %}
-                <ul class="space-y-2">
-                    <li>
-                        <a
-                                href="{% url 'home' %}"
-                                class="block text-gray-600 hover:text-teal-500 bg-slate-100 p-2 m-2 rounded-md"
-                        >Home</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                                href="{% url 'UserQuestions' username=None %}"
-                                class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md"
-                        >Question List</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                                href="{% url 'CreateQuestion' %}"
-                                class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md"
-                        >Ask a Question</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                                href="{% url 'UserCodes' username=None %}"
-                                class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md"
-                        >Code List</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                                href="{% url 'CreateCode' %}"
-                                class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md"
-                        >Share a Code</a
-                        >
-                    </li>
-                    <br/><br/>
-                    <div class="bg-gray-300 p-2 m-2 rounded-full items-center">
-                        <li>
-                            <a
-                                    href="{% url 'UserQuestions' username=user.username %}"
-                                    class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center"
-                            >Your Questions</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                    href="{% url 'UserCodes' username=user.username %}"
-                                    class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center"
-                            >Your Codes</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                    href="{{ last_question }}"
-                                    class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center"
-                            >Your Last Question</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                    href="{{ last_code }}"
-                                    class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center"
-                            >Your Last Shared Code</a
-                            >
-                        </li>
-                    </div>
-                </ul>
-            {% else %}
-                <ul class="space-y-2">
-                <li>
-                    <a
-                            href="{% url 'home' %}"
-                            class="block text-gray-600 hover:text-teal-500 bg-slate-100 p-2 m-2 rounded-md"
-                    >Home</a
-                    >
-                </li>
-                <li>
-                    <a
-                            href="{% url 'UserQuestions' username=None %}"
-                            class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md"
-                    >Question List</a
-                    >
-                </li>
-                <li>
-                    <a
-                            href="{% url "login" %}"
-                            class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md"
-                    >Ask a Question</a
-                    >
-                </li>
-                <li>
-                    <a
-                            href="{% url 'UserCodes' username=None %}"
-                            class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md"
-                    >Code List</a
-                    >
-                </li>
-                <li>
-                    <a
-                            href="{% url "login" %}"
-                            class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md"
-                    >Share a Code</a
-                    >
-                </li>
-                <br/><br/>
-                <div class="bg-gray-300 p-2 m-2 rounded-full items-center">
-                    <li>
-                        <a
-                                href="{% url "login" %}"
-                                class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center"
-                        >Your Questions</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                                href="{% url "login" %}"
-                                class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center"
-                        >Your Codes</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                                href="{% url "login" %}"
-                                class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center"
-                        >Your Last Question</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                                href="{% url "login" %}"
-                                class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center"
-                        >Your Last Shared Code</a
-                        >
-                    </li>
-                </div>
-            </ul>
-            {% endif %}
-        </nav>
-
+        <div class="overflow-x-auto w-full md:w-1/4 pr-8">
+            <div class="max-w-md">
+                <nav class="sticky top-0 hidden sm:overflow-scroll">
+                    {% if user %}
+                        <ul class="space-y-2">
+                            <li>
+                                <a
+                                        href="{% url 'home' %}"
+                                        class="block text-gray-600 hover:text-teal-500 bg-slate-100 p-2 m-2 rounded-md sm:text-sm"
+                                >Home</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                        href="{% url 'UserQuestions' username=None %}"
+                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md sm:text-sm"
+                                >Question List</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                        href="{% url 'CreateQuestion' %}"
+                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md sm:text-sm"
+                                >Ask a Question</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                        href="{% url 'UserCodes' username=None %}"
+                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md sm:text-sm"
+                                >Code List</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                        href="{% url 'CreateCode' %}"
+                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md sm:text-sm"
+                                >Share a Code</a
+                                >
+                            </li>
+                            <br/><br/>
+                            <div class="bg-gray-300 p-2 m-2 rounded-full items-center">
+                                <li>
+                                    <a
+                                            href="{% url 'UserQuestions' username=user.username %}"
+                                            class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center sm:text-sm"
+                                    >Your Questions</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                            href="{% url 'UserCodes' username=user.username %}"
+                                            class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center sm:text-sm"
+                                    >Your Codes</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                            href="{{ last_question }}"
+                                            class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center sm:text-sm"
+                                    >Your Last Question</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                            href="{{ last_code }}"
+                                            class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center sm:text-sm"
+                                    >Your Last Shared Code</a
+                                    >
+                                </li>
+                            </div>
+                        </ul>
+                    {% else %}
+                        <ul class="space-y-2">
+                            <li>
+                                <a
+                                        href="{% url 'home' %}"
+                                        class="block text-gray-600 hover:text-teal-500 bg-slate-100 p-2 m-2 rounded-md sm:text-sm"
+                                >Home</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                        href="{% url 'UserQuestions' username=None %}"
+                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md sm:text-sm"
+                                >Question List</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                        href="{% url "login" %}"
+                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md sm:text-sm"
+                                >Ask a Question</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                        href="{% url 'UserCodes' username=None %}"
+                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md sm:text-sm"
+                                >Code List</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                        href="{% url "login" %}"
+                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md sm:text-sm"
+                                >Share a Code</a
+                                >
+                            </li>
+                            <br/><br/>
+                            <div class="bg-gray-300 p-2 m-2 rounded-full items-center">
+                                <li>
+                                    <a
+                                            href="{% url "login" %}"
+                                            class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center"
+                                    >Your Questions</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                            href="{% url "login" %}"
+                                            class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center"
+                                    >Your Codes</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                            href="{% url "login" %}"
+                                            class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center"
+                                    >Your Last Question</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                            href="{% url "login" %}"
+                                            class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center"
+                                    >Your Last Shared Code</a
+                                    >
+                                </li>
+                            </div>
+                        </ul>
+                    {% endif %}
+                </nav>
+            </div>
+        </div>
         <main class="w-3/4">
             <div class="space-y-4">
                 {% for question in questions %}
