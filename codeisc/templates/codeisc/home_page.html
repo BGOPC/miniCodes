@@ -8,41 +8,41 @@
     <div class="container mx-auto mt-8 flex">
         <div class="overflow-x-auto w-full md:w-1/4 pr-8">
             <div class="max-w-md">
-                <nav class="sticky top-0 hidden sm:overflow-scroll">
+                <nav class="sticky top-0 md:overflow-hidden sm:overflow-scroll">
                     {% if user %}
                         <ul class="space-y-2">
                             <li>
                                 <a
                                         href="{% url 'home' %}"
-                                        class="block text-gray-600 hover:text-teal-500 bg-slate-100 p-2 m-2 rounded-md sm:text-sm"
+                                        class="block text-gray-600 hover:text-teal-500 bg-slate-100 p-2 m-2 rounded-md md:text-lg sm:text-sm"
                                 >Home</a
                                 >
                             </li>
                             <li>
                                 <a
                                         href="{% url 'UserQuestions' username=None %}"
-                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md sm:text-sm"
+                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md md:text-lg sm:text-sm"
                                 >Question List</a
                                 >
                             </li>
                             <li>
                                 <a
                                         href="{% url 'CreateQuestion' %}"
-                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md sm:text-sm"
+                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md md:text-lg sm:text-sm"
                                 >Ask a Question</a
                                 >
                             </li>
                             <li>
                                 <a
                                         href="{% url 'UserCodes' username=None %}"
-                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md sm:text-sm"
+                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md md:text-lg sm:text-sm"
                                 >Code List</a
                                 >
                             </li>
                             <li>
                                 <a
                                         href="{% url 'CreateCode' %}"
-                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md sm:text-sm"
+                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md md:text-lg sm:text-sm"
                                 >Share a Code</a
                                 >
                             </li>
@@ -51,28 +51,28 @@
                                 <li>
                                     <a
                                             href="{% url 'UserQuestions' username=user.username %}"
-                                            class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center sm:text-sm"
+                                            class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center md:text-lg sm:text-sm"
                                     >Your Questions</a
                                     >
                                 </li>
                                 <li>
                                     <a
                                             href="{% url 'UserCodes' username=user.username %}"
-                                            class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center sm:text-sm"
+                                            class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center md:text-lg sm:text-sm"
                                     >Your Codes</a
                                     >
                                 </li>
                                 <li>
                                     <a
                                             href="{{ last_question }}"
-                                            class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center sm:text-sm"
+                                            class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center md:text-lg sm:text-sm"
                                     >Your Last Question</a
                                     >
                                 </li>
                                 <li>
                                     <a
                                             href="{{ last_code }}"
-                                            class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center sm:text-sm"
+                                            class="block text-sky-600 hover:text-teal-500 p-2 m-2 rounded-md text-center md:text-lg sm:text-sm"
                                     >Your Last Shared Code</a
                                     >
                                 </li>
@@ -83,35 +83,35 @@
                             <li>
                                 <a
                                         href="{% url 'home' %}"
-                                        class="block text-gray-600 hover:text-teal-500 bg-slate-100 p-2 m-2 rounded-md sm:text-sm"
+                                        class="block text-gray-600 hover:text-teal-500 bg-slate-100 p-2 m-2 rounded-md md:text-lg sm:text-sm"
                                 >Home</a
                                 >
                             </li>
                             <li>
                                 <a
                                         href="{% url 'UserQuestions' username=None %}"
-                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md sm:text-sm"
+                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md md:text-lg sm:text-sm"
                                 >Question List</a
                                 >
                             </li>
                             <li>
                                 <a
                                         href="{% url "login" %}"
-                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md sm:text-sm"
+                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md md:text-lg sm:text-sm"
                                 >Ask a Question</a
                                 >
                             </li>
                             <li>
                                 <a
                                         href="{% url 'UserCodes' username=None %}"
-                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md sm:text-sm"
+                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md md:text-lg sm:text-sm"
                                 >Code List</a
                                 >
                             </li>
                             <li>
                                 <a
                                         href="{% url "login" %}"
-                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md sm:text-sm"
+                                        class="bg-slate-100 block text-gray-600 hover:text-teal-500 p-2 m-2 rounded-md md:text-lg sm:text-sm"
                                 >Share a Code</a
                                 >
                             </li>
