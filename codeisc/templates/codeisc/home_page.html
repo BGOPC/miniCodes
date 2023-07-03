@@ -47,7 +47,7 @@
                                 >
                             </li>
                             <br/><br/>
-                            <div class="bg-gray-300 p-2 m-2 rounded-full items-center">
+                            <div class="bg-gray-300 p-2 m-2 rounded-full items-center sm:p-1">
                                 <li>
                                     <a
                                             href="{% url 'UserQuestions' username=user.username %}"
@@ -151,7 +151,7 @@
                 </nav>
             </div>
         </div>
-        <main class="w-3/4">
+        <main class="w-3/4 flex-1">
             <div class="space-y-4">
                 {% for question in questions %}
                     {% include 'codeisc/includes/question.html' with question=question %}
