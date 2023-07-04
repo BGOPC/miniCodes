@@ -1,9 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
-from django.views.generic import TemplateView, ListView, CreateView
+from django.views.generic import TemplateView, ListView, CreateView, FormView
 
-from .forms import CreateQuestionForm, CreateCodeForm, CreateAnswerForm
+from .forms import CreateQuestionForm, CreateCodeForm, CreateAnswerForm, SearchForm
 from .models import Question, Answer, Code
 
 language_mapping = {
@@ -169,3 +169,20 @@ class AnswerCreateView(LoginRequiredMixin, CreateView):
         question_id = self.object.question.pk
         success_url = reverse('AnswerPage', kwargs={"questionID": question_id, "answerID": answer_id})
         return success_url
+
+
+class SearchFormView(FormView):
+    form_class = SearchForm
+    template_name = 'codeisc/search_form_page.html'
+
+    def __init__(self, **kwargs):
+        super().__init__(kwargs)
+        self.query = None
+
+    def form_valid(self, form):
+        self.query = form.cleaned_data.get('query', '')
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        url = reverse("searchQuery", kwargs={"query": self.query})
+        return url

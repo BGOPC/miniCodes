@@ -1,0 +1,29 @@
+{% extends '_layout.html' %}
+{% block title %}
+    MiniCodes - Search
+{% endblock %}
+{% block content %}
+    <form method="post" id="signupForm"
+          class="bg-slate-400 w-1/2 mx-auto items-center justify-center px-5 border-2 border-gray-900 py-3 rounded-3 h-100 my-4">
+        {% csrf_token %}
+        <div>
+            <label class="block text-center font-weight-bold text-lg">Query</label>
+            {{ form.query }}
+        </div>
+        <div class="text-center">
+            <button type="submit"
+                    class="bg-gray-900 text-white active:bg-gray-700 uppercase text-sm font-bold px-6 py-3 rounded shadow hover:bg-gray-800 outline-none focus:outline-none mr-1 mb-1 w-1/4">
+                Submit
+            </button>
+        </div>
+        {% if form.errors %}
+            <ul class="text-red-900 list-disc pl-4 mt-2">
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </form>
+{% endblock %}

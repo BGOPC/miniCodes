@@ -10,3 +10,11 @@ document.addEventListener('click', (event) => {
         hamburgerMenu.classList.add('hidden');
     }
 });
+
+function handleKeyUp(event, url) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        var inputValue = document.getElementById("myInput").value;
+        window.location.href = url + encodeURIComponent(inputValue);
+    }
+}

@@ -1,4 +1,5 @@
 from django.urls import path
+
 from . import views
 
 urlpatterns = [
@@ -10,5 +11,7 @@ urlpatterns = [
     path("questions/question/<int:questionID>/<int:answerID>", views.QuestionView.as_view(), name="AnswerPage"),
     path("questions/<slug:username>", views.QuestionsListView.as_view(), name="UserQuestions"),
     path("questions/question/new", views.QuestionCreateView.as_view(), name="CreateQuestion"),
-    path("questions/question/<int:questionID>/create", views.AnswerCreateView.as_view(), name="CreateAnswer")
+    path("questions/question/<int:questionID>/create", views.AnswerCreateView.as_view(), name="CreateAnswer"),
+    path("search/", views.SearchFormView, name="search"),
+    path("search/<str:query>", name="searchQuery"),
 ]
