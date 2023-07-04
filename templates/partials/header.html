@@ -47,14 +47,14 @@
             </a>
         </div>
         <div class="flex items-center flex-grow m-2 sm:flex-row">
-            <div class="flex items-center bg-white rounded-lg w-full ">
-                <i class="fa fa-search px-4 border-r-2 border-gray-700" aria-hidden="true"></i>
+            <div class="flex items-center bg-white rounded-lg w-max sm:w-full">
+                <i class="fa fa-search px-4 border-none sm:border-r-2 border-gray-700 m-2 sm:m-0" aria-hidden="true"></i>
                 <input
                         type="text"
                         id="searchInput"
                         data-search-url="{% url 'search' %}"
                         onkeyup="handleSearch(event);"
-                        class="flex-grow px-4 py-2 rounded-lg w-full md:block sm:hidden"
+                        class="grow px-4 py-2 rounded-lg hidden sm:block"
                         placeholder="Search"
                 />
             </div>
