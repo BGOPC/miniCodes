@@ -19,3 +19,9 @@ function handleSearch(event) {
         window.location.href = searchUrl + encodeURIComponent(inputValue);
     }
 }
+function toggleSearchResults() {
+    const codeList = document.getElementById("codeList");
+    const questionList = document.getElementById("questionList");
+    codeList.classList.toggle("hidden");
+    questionList.classList.toggle("hidden");
+}

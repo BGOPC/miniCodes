@@ -199,6 +199,7 @@ class SearchResultView(TemplateView):
         query = kwargs.get('query')
 
         questions = Question.objects.filter(Q(short_description__icontains=query) | Q(description__icontains=query))
+        codes = Code.objects.filter(Q(short_description__icontains=query) | Q(code_text__icontains=query))
         questions = questions.annotate(
             relevance_score=Count(
                 Case(
@@ -211,10 +212,7 @@ class SearchResultView(TemplateView):
                 )
             )
         )
-        questions = questions.order_by('-relevance_score')
-        context['questions'] = questions
 
-        codes = Code.objects.filter(Q(short_description__icontains=query) | Q(code_text__icontains=query))
         codes = codes.annotate(
             relevance_score=Count(
                 Case(
@@ -227,7 +225,9 @@ class SearchResultView(TemplateView):
                 )
             )
         )
+        questions = questions.order_by('-relevance_score')
         codes = codes.order_by('-relevance_score')
+        context['questions'] = questions
         context['codes'] = codes
 
         return context
