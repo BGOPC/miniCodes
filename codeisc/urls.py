@@ -12,6 +12,6 @@ urlpatterns = [
     path("questions/<slug:username>", views.QuestionsListView.as_view(), name="UserQuestions"),
     path("questions/question/new", views.QuestionCreateView.as_view(), name="CreateQuestion"),
     path("questions/question/<int:questionID>/create", views.AnswerCreateView.as_view(), name="CreateAnswer"),
-    path("search/", views.SearchFormView, name="search"),
-    path("search/<str:query>", name="searchQuery"),
+    path("search/", views.SearchFormView.as_view(), name="search"),
+    path("search/<str:query>", views.SearchResultView.as_view(), name="searchQuery"),
 ]

@@ -57,7 +57,7 @@ class CreateAnswerForm(forms.ModelForm):
 
 
 class SearchForm(forms.Form):
-    query = forms.CharField(widgets=forms.TextInput(attrs={
+    query = forms.CharField(widget=forms.TextInput(attrs={
         'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
                  'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300 text-center'
     }))

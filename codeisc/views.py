@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import F, Q
+from django.db import models
+from django.db.models import Case, Count, Q, Value, When
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, CreateView, FormView
@@ -196,28 +197,36 @@ class SearchResultView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['user'] = self.request.user if self.request.user.is_authenticated else None
         query = kwargs.get('query')
-        keywords = query.split()
 
-        # Query the database for questions
         questions = Question.objects.filter(Q(short_description__icontains=query) | Q(description__icontains=query))
-        for keyword in keywords:
-            questions = questions.annotate(
-                relevance_score=(
-                        F('short_description__icontains', keyword) +
-                        F('description__icontains', keyword)
+        questions = questions.annotate(
+            relevance_score=Count(
+                Case(
+                    When(
+                        Q(short_description__iexact=query) | Q(description__iexact=query),
+                        then=Value(1)
+                    ),
+                    default=Value(0),
+                    output_field=models.IntegerField(),
                 )
             )
+        )
         questions = questions.order_by('-relevance_score')
         context['questions'] = questions
 
         codes = Code.objects.filter(Q(short_description__icontains=query) | Q(code_text__icontains=query))
-        for keyword in keywords:
-            codes = codes.annotate(
-                relevance_score=(
-                        F('short_description__icontains', keyword) +
-                        F('code_text__icontains', keyword)
+        codes = codes.annotate(
+            relevance_score=Count(
+                Case(
+                    When(
+                        Q(short_description__iexact=query) | Q(code_text__iexact=query),
+                        then=Value(1)
+                    ),
+                    default=Value(0),
+                    output_field=models.IntegerField(),
                 )
             )
+        )
         codes = codes.order_by('-relevance_score')
         context['codes'] = codes
 
