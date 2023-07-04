@@ -11,10 +11,11 @@ document.addEventListener('click', (event) => {
     }
 });
 
-function handleKeyUp(event, url) {
+function handleSearch(event) {
     if (event.key === "Enter") {
         event.preventDefault();
-        var inputValue = document.getElementById("myInput").value;
-        window.location.href = url + encodeURIComponent(inputValue);
+        const inputValue = document.getElementById("searchInput").value;
+        const searchUrl = document.getElementById("searchInput").dataset.searchUrl;
+        window.location.href = searchUrl + encodeURIComponent(inputValue);
     }
 }

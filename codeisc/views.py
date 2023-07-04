@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import F, Q
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, CreateView, FormView
@@ -186,3 +187,38 @@ class SearchFormView(FormView):
     def get_success_url(self):
         url = reverse("searchQuery", kwargs={"query": self.query})
         return url
+
+
+class SearchResultView(TemplateView):
+    template_name = 'codeisc/search_result_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user if self.request.user.is_authenticated else None
+        query = kwargs.get('query')
+        keywords = query.split()
+
+        # Query the database for questions
+        questions = Question.objects.filter(Q(short_description__icontains=query) | Q(description__icontains=query))
+        for keyword in keywords:
+            questions = questions.annotate(
+                relevance_score=(
+                        F('short_description__icontains', keyword) +
+                        F('description__icontains', keyword)
+                )
+            )
+        questions = questions.order_by('-relevance_score')
+        context['questions'] = questions
+
+        codes = Code.objects.filter(Q(short_description__icontains=query) | Q(code_text__icontains=query))
+        for keyword in keywords:
+            codes = codes.annotate(
+                relevance_score=(
+                        F('short_description__icontains', keyword) +
+                        F('code_text__icontains', keyword)
+                )
+            )
+        codes = codes.order_by('-relevance_score')
+        context['codes'] = codes
+
+        return context

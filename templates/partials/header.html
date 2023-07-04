@@ -31,6 +31,10 @@
                     </li>
                     <hr class="bg-black h-1">
                     <li class="my-2 p-2 rounded-lg">
+                        <a href="{% url 'search' %}" class="text-gray-600 hover:text-blue-500">Search</a>
+                    </li>
+                    <hr class="bg-black h-1">
+                    <li class="my-2 p-2 rounded-lg">
                         <a href="{% url 'logout' %}" class="text-red-900 hover:text-blue-500 font-semibold">Log out</a>
                     </li>
                 </ul>
@@ -45,6 +49,9 @@
         <div class="flex items-center flex-grow m-2 sm:flex-row">
             <input
                     type="text"
+                    id="searchInput"
+                    data-search-url="{% url 'search' %}"
+                    onkeyup="handleSearch(event);"
                     class="px-4 py-2 rounded-lg w-full"
                     placeholder="Search"
             />
