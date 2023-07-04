@@ -47,14 +47,17 @@
             </a>
         </div>
         <div class="flex items-center flex-grow m-2 sm:flex-row">
-            <input
-                    type="text"
-                    id="searchInput"
-                    data-search-url="{% url 'search' %}"
-                    onkeyup="handleSearch(event);"
-                    class="px-4 py-2 rounded-lg w-full"
-                    placeholder="Search"
-            />
+            <div class="flex items-center bg-white rounded-lg w-full ">
+                <i class="fa fa-search px-4 border-r-2 border-gray-700" aria-hidden="true"></i>
+                <input
+                        type="text"
+                        id="searchInput"
+                        data-search-url="{% url 'search' %}"
+                        onkeyup="handleSearch(event);"
+                        class="flex-grow px-4 py-2 rounded-lg w-full md:block sm:hidden"
+                        placeholder="Search"
+                />
+            </div>
             {% if user.is_authenticated %}
                 <a href="{% url 'profile' %}">
                     <div class="ml-4 flex items-center text-white">
