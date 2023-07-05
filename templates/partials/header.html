@@ -25,15 +25,15 @@
                         <a href="{% url 'CreateQuestion' %}" class="text-gray-600 hover:text-blue-500">Ask a
                             question</a>
                     </li>
-                    <hr class="bg-black h-1">
+                    <hr class="bg-black h-[2px]">
                     <li class="my-2 p-2 rounded-lg">
                         <a href="{% url 'CreateCode' %}" class="text-gray-600 hover:text-blue-500">Share a code</a>
                     </li>
-                    <hr class="bg-black h-1">
+                    <hr class="bg-black h-[2px]">
                     <li class="my-2 p-2 rounded-lg">
                         <a href="{% url 'search' %}" class="text-gray-600 hover:text-blue-500">Search</a>
                     </li>
-                    <hr class="bg-black h-1">
+                    <hr class="bg-black h-[2px]">
                     <li class="my-2 p-2 rounded-lg">
                         <a href="{% url 'logout' %}" class="text-red-900 hover:text-blue-500 font-semibold">Log out</a>
                     </li>
@@ -54,7 +54,7 @@
                         id="searchInput"
                         data-search-url="{% url 'search' %}"
                         onkeyup="handleSearch(event);"
-                        class="grow px-4 py-2 rounded-lg hidden sm:block"
+                        class="grow px-4 py-2 focus:outline-0 rounded-lg hidden sm:block"
                         placeholder="Search"
                 />
             </div>

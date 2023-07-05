@@ -21,6 +21,7 @@ class User(AbstractUser):
         # Instead of deleting the user, modify the username and set the is_active flag to False
         self.username = f'user{self.id}'
         self.is_active = False
+        self.profile = "profile/unknown-profile-picture.png"
         self.save()
 
     def __str__(self):
