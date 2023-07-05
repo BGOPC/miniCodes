@@ -178,7 +178,7 @@ class SearchFormView(FormView):
     template_name = 'codeisc/search_form_page.html'
 
     def __init__(self, **kwargs):
-        super().__init__(kwargs)
+        super().__init__(**kwargs)
         self.query = None
 
     def form_valid(self, form):

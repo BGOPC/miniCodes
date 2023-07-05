@@ -7,7 +7,6 @@
             <pre class="{{ code_language }} code-block bg-gray-200 rounded-lg p-2">{{ code.code_text }}</pre>
         {% endpygmentify %}
     </div>
-    <button type="button" style="display: none" id="expand-button">Expand</button>
     <a class="appearance-none" href="{% url 'userProfile' username=code.author.username %}">
         <div class="flex items-center text-gray-500 mt-2">
             <div class="mr-2">{{ code.created_at|date:"F j, Y" }}</div>
@@ -19,20 +18,3 @@
         </div>
     </a>
 </div>
-
-<script>
-    const truncatedCodeElement = document.getElementById('truncated-code');
-    const expandButtonElement = document.getElementById('expand-button');
-    const maxCharacters = 200;
-    const fullCodeText = truncatedCodeElement.innerText;
-
-    if (fullCodeText.length > maxCharacters) {
-        truncatedCodeElement.innerText = fullCodeText.slice(0, maxCharacters) + '...';
-        expandButtonElement.style.display = "block";
-    }
-
-    expandButtonElement.addEventListener('click', function (event) {
-        truncatedCodeElement.innerText = fullCodeText;
-        expandButtonElement.style.display = 'none';
-    });
-</script>

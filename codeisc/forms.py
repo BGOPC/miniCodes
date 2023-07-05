@@ -20,6 +20,10 @@ class CreateQuestionForm(forms.ModelForm):
             }),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['code'].required = False
+
 
 class CreateCodeForm(forms.ModelForm):
     class Meta:
@@ -54,6 +58,10 @@ class CreateAnswerForm(forms.ModelForm):
                          'px-4 mb-3 focus:outline-none focus:bg-gray-300',
             }),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['code'].required = False
 
 
 class SearchForm(forms.Form):
