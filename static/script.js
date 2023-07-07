@@ -19,9 +19,10 @@ function handleSearch(event) {
         window.location.href = searchUrl + encodeURIComponent(inputValue);
     }
 }
-function toggleSearchResults() {
+function toggleSearchResults(btn) {
     const codeList = document.getElementById("codeList");
     const questionList = document.getElementById("questionList");
     codeList.classList.toggle("hidden");
     questionList.classList.toggle("hidden");
+    btn.innerHTML = btn.innerHTML === "Show Codes" ? "questionList" : "Show Codes";
 }
