@@ -15,6 +15,11 @@
                     </pre>
                     {% endpygmentify %}
                 </div>
+                <div class="mt-6 p-4 bg-stone-50">
+                    {% for tag in code.tags.all %}
+                        {% include 'codeisc/includes/tag.html' with tag=tag %}
+                    {% endfor %}
+                </div>
                 <p class="text-sm text-gray-500">Author: {{ code.author.username }}</p>
                 <p class="text-sm text-gray-500">Created at: {{ code.created_at }}</p>
             </div>
