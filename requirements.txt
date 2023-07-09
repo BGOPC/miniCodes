@@ -5,8 +5,10 @@ backcall==0.2.0
 beautifulsoup4==4.12.2
 decorator==5.1.1
 Django==4.2
+django-appconf==1.0.5
 django-phonenumber-field==7.0.2
 django-pygmentify==0.3.7
+django-select2==8.1.2
 djangorestframework==3.14.0
 executing==1.2.0
 ipython==8.14.0
@@ -21,6 +23,7 @@ prompt-toolkit==3.0.38
 psycopg2==2.9.6
 ptyprocess==0.7.0
 pure-eval==0.2.2
+Pygments==2.15.1
 python-dotenv==1.0.0
 pytz==2023.3
 six==1.16.0
