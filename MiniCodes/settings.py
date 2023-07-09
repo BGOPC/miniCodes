@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'codeisc',
     'pygments',
     'pygmentify',
+    'django_select2',
 ]
 
 MIDDLEWARE = [

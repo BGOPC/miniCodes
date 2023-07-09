@@ -1,12 +1,17 @@
 from django import forms
+from django_select2.forms import Select2MultipleWidget, ModelSelect2MultipleWidget
 
 from .models import *
+
+
+class TagSelectWidget(ModelSelect2MultipleWidget):
+    search_fields = ['name__icontains']
 
 
 class CreateQuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ['short_description', 'description', 'code']
+        fields = ['short_description', 'description', 'code', 'tags']
         widgets = {
             'short_description': forms.TextInput(attrs={
                 'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
@@ -14,10 +19,15 @@ class CreateQuestionForm(forms.ModelForm):
             'description': forms.Textarea(attrs={
                 'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
                          'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300'}),
-            'code': forms.CheckboxSelectMultiple(attrs={
+            'code': Select2MultipleWidget(attrs={
                 'class': 'bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
-                         'px-4 mb-3 focus:outline-none focus:bg-gray-300',
+                         'px-4 mb-3 focus:outline-none focus:bg-gray-300 select2',
+                'data-placeholder': 'Search options...',
             }),
+            'tags': TagSelectWidget(model=Tag, attrs={
+                'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3'
+                         'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300',
+            })
         }
 
     def __init__(self, *args, **kwargs):
@@ -39,6 +49,10 @@ class CreateCodeForm(forms.ModelForm):
             'type': forms.Select(attrs={
                 'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
                          'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300 text-center'}),
+            'tags': TagSelectWidget(model=Tag, attrs={
+                'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3'
+                         'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300',
+            })
         }
 
 
@@ -53,9 +67,10 @@ class CreateAnswerForm(forms.ModelForm):
             'description': forms.Textarea(attrs={
                 'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
                          'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300'}),
-            'code': forms.CheckboxSelectMultiple(attrs={
+            'code': Select2MultipleWidget(attrs={
                 'class': 'bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
-                         'px-4 mb-3 focus:outline-none focus:bg-gray-300',
+                         'px-4 mb-3 focus:outline-none focus:bg-gray-300 select2',
+                'data-placeholder': 'Search options...',
             }),
         }
 
