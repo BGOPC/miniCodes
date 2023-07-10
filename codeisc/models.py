@@ -10,6 +10,9 @@ from users.models import User
 class Tag(models.Model):
     name = models.CharField(max_length=100, db_index=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Code(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="Code_Author")
@@ -51,3 +54,6 @@ class Answer(models.Model):
     code = models.ManyToManyField(Code, blank=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"{self.short_description}:{self.author.username}"
