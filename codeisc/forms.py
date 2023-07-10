@@ -15,14 +15,14 @@ class CreateQuestionForm(forms.ModelForm):
             'description': forms.Textarea(attrs={
                 'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
                          'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300'}),
-            'code': Select2MultipleWidget(attrs={
+            'code': forms.CheckboxSelectMultiple(attrs={
                 'class': 'bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
                          'px-4 mb-3 focus:outline-none focus:bg-gray-300 select2',
                 'data-placeholder': 'Search options...',
             }),
             'tags': Select2MultipleWidget(attrs={
                 'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3'
-                         'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300',
+                         'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300 select2',
             })
         }
 
@@ -47,7 +47,7 @@ class CreateCodeForm(forms.ModelForm):
                          'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300 text-center'}),
             'tags': Select2MultipleWidget(attrs={
                 'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3'
-                         'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300',
+                         'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300 select2',
             })
         }
 
@@ -63,7 +63,7 @@ class CreateAnswerForm(forms.ModelForm):
             'description': forms.Textarea(attrs={
                 'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
                          'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300'}),
-            'code': Select2MultipleWidget(attrs={
+            'code': forms.CheckboxSelectMultiple(attrs={
                 'class': 'bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
                          'px-4 mb-3 focus:outline-none focus:bg-gray-300 select2',
                 'data-placeholder': 'Search options...',
