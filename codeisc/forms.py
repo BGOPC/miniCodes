@@ -11,10 +11,14 @@ class CreateQuestionForm(forms.ModelForm):
         widgets = {
             'short_description': forms.TextInput(attrs={
                 'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
-                         'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300 text-center'}),
+                         'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300 text-center',
+                'placeholder': 'Enter title...',
+            }),
             'description': forms.Textarea(attrs={
                 'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
-                         'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300'}),
+                         'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300',
+                'placeholder': 'Enter description...',
+            }),
             'code': forms.CheckboxSelectMultiple(attrs={
                 'class': 'bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
                          'px-4 mb-3 focus:outline-none focus:bg-gray-300 select2',
@@ -23,6 +27,7 @@ class CreateQuestionForm(forms.ModelForm):
             'tags': Select2MultipleWidget(attrs={
                 'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3'
                          'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300 select2',
+                'data-placeholder': 'Select tags...',
             })
         }
 
