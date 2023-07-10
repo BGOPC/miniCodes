@@ -1,4 +1,5 @@
 from django.urls import path
+from django_select2.views import AutoResponseView
 
 from . import views
 
@@ -14,4 +15,5 @@ urlpatterns = [
     path("questions/question/<int:questionID>/create", views.AnswerCreateView.as_view(), name="CreateAnswer"),
     path("search/", views.SearchFormView.as_view(), name="search"),
     path("search/<str:query>", views.SearchResultView.as_view(), name="searchQuery"),
+    path('select2/', AutoResponseView.as_view(), name='django_select2'),
 ]
