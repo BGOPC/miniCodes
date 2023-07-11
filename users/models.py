@@ -10,7 +10,7 @@ class User(AbstractUser):
     password = models.CharField(max_length=255, null=True)
     email = models.EmailField(max_length=255, unique=True)
     reputation = models.DecimalField(max_digits=7, decimal_places=1, default=1.0)
-    phoneNum = PhoneNumberField(null=False, unique=True, default='')
+    phoneNum = PhoneNumberField(null=False, default='')
     profile = models.ImageField(upload_to="profile/", null=True, blank=True,
                                 default="profile/unknown-profile-picture.png")
     description = models.TextField(blank=True, null=True, default="No Description Provided")
