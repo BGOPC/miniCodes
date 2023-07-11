@@ -7,7 +7,7 @@ from .models import *
 class CreateQuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ['short_description', 'description', 'code', 'tags']
+        fields = ['short_description', 'description', 'code']
         widgets = {
             'short_description': forms.TextInput(attrs={
                 'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3 '
@@ -24,11 +24,6 @@ class CreateQuestionForm(forms.ModelForm):
                          'px-4 mb-3 focus:outline-none focus:bg-gray-300 select2',
                 'data-placeholder': 'Search options...',
             }),
-            'tags': Select2MultipleWidget(attrs={
-                'class': 'appearance-none block w-full bg-gray-200 text-gray-700 border border-sky-600 rounded py-3'
-                         'px-4 mb-3 leading-tight focus:outline-none focus:bg-gray-300 select2',
-                'data-placeholder': 'Select tags...',
-            })
         }
 
     def __init__(self, *args, **kwargs):
