@@ -2,7 +2,9 @@
 {% block title %}
     MiniCodes - Share a code
 {% endblock %}
-{% block styles %}<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>{% endblock %}
+{% block styles %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+          rel="stylesheet"/>{% endblock %}
 {% block scripts %}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
@@ -42,8 +44,10 @@
 
         </div>
         <div class="mb-4">
-            <label class="block text-center font-bold text-lg mb-2">Select Tags</label>
-            {{ form.tags }}
+            <label class="block text-center font-bold text-lg mb-2">Select Codes</label>
+            {{ form.code }}
+
+            <a href="{% url 'CreateCode' %}" class="block m-2 text-lg text-emerald-800">Create A Code</a>
         </div>
         <div class="flex items-center justify-center">
             <input type="submit" value="Post A Code"

@@ -7,16 +7,13 @@
     <div class="container mx-auto my-4 p-4 bg-neutral-200 rounded-lg">
         <h1 class="text-4xl font-bold">{{ question.short_description }}</h1>
         <p class="my-4">{{ question.description }}</p>
-        <div class="mt-4">
-            {% for code in question.code.all %}
-                {% include 'codeisc/includes/code.html' with code=code code_language=language_mapping|get_from_dict:code.type %}
-            {% endfor %}
-        </div>
-        <div class="mt-6 p-4 bg-stone-50">
-            {% for tag in code.tags.all %}
-                {% include 'codeisc/includes/tag.html' with tag=tag %}
-            {% endfor %}
-        </div>
+        {% if question.code.all %}
+            <div class="mt-4">
+                {% for code in question.code.all %}
+                    {% include 'codeisc/includes/code.html' with code=code code_language=language_mapping|get_from_dict:code.type %}
+                {% endfor %}
+            </div>
+        {% endif %}
         <div class="mt-6 bg-neutral-100 p-4 rounded-lg">
             <p class="text-sm font-semibold"><a href="{% url 'userProfile' username=question.author.username %}"
                                                 class="text-blue-500">
