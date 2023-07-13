@@ -5,12 +5,12 @@
 {% block content %}
     <main class="w-full m-4 p-2 flex-1 bg-gray-200">
         <button onclick="toggleSearchResults(this);">Show Codes</button>
-        <div class="space-y-4 fixed inset-0" id="questionList">
+        <div class="space-y-4 inset-x-0 m-4" id="questionList">
             {% for question in questions %}
                 {% include 'codeisc/includes/question.html' with question=question %}
             {% endfor %}
         </div>
-        <div class="space-y-4 fixed inset-0 hidden" id="codeList">
+        <div class="space-y-4 inset-x-0 hidden m-4" id="codeList">
             {% for code in codes %}
                 {% include 'codeisc/includes/code.html' with code=code %}
             {% endfor %}

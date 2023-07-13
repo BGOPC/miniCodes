@@ -24,5 +24,5 @@ function toggleSearchResults(btn) {
     const questionList = document.getElementById("questionList");
     codeList.classList.toggle("hidden");
     questionList.classList.toggle("hidden");
-    btn.innerHTML = btn.innerHTML === "Show Codes" ? "questionList" : "Show Codes";
+    btn.innerHTML = btn.innerHTML === "Show Codes" ? "Show Questions" : "Show Codes";
 }
